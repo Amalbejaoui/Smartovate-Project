@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
+
 const validateProduct = require("../middleware/productValidation");
+const authenticateToken = require("../middleware/authMiddleware");
+const isAdmin = require("../middleware/adminMiddleware");
 
 const {
     getProducts,
@@ -9,19 +12,50 @@ const {
     removeProduct
 } = require("../controllers/productController");
 
-// GET all
+
+// ===================================
+// GET PRODUCTS
+// Everyone can view products
+// ===================================
 router.get("/", getProducts);
 
 
-// POST create
-router.post("/", validateProduct, addProduct);
+// ===================================
+// CREATE PRODUCT
+// Admin Only
+// ===================================
+router.post(
+    "/",
+    authenticateToken,
+    isAdmin,
+    validateProduct,
+    addProduct
+);
 
-// PUT update
-router.put("/:id", validateProduct, updateProduct);
 
-// DELETE remove
-router.delete("/:id", removeProduct);
+// ===================================
+// UPDATE PRODUCT
+// Admin Only
+// ===================================
+router.put(
+    "/:id",
+    authenticateToken,
+    isAdmin,
+    validateProduct,
+    updateProduct
+);
 
+
+// ===================================
+// DELETE PRODUCT
+// Admin Only
+// ===================================
+router.delete(
+    "/:id",
+    authenticateToken,
+    isAdmin,
+    removeProduct
+);
 
 
 module.exports = router;
