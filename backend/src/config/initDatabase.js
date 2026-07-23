@@ -162,6 +162,84 @@ CREATE TABLE OrderItems(
 `);
 
         console.log("OrderItems table is ready.");
+        // =====================================
+// CATEGORIES TABLE
+// =====================================
+
+        await pool.request().query(`
+
+IF NOT EXISTS (
+    SELECT *
+    FROM sysobjects
+    WHERE name='Categories'
+    AND xtype='U'
+)
+
+CREATE TABLE Categories(
+
+    id INT IDENTITY(1,1) PRIMARY KEY,
+
+    name NVARCHAR(100) NOT NULL UNIQUE,
+
+    createdAt DATETIME DEFAULT GETDATE()
+
+);
+
+`);
+
+        console.log("Categories table is ready.");
+
+
+// =====================================
+// ADD categoryId TO PRODUCTS
+// =====================================
+
+        await pool.request().query(`
+
+IF COL_LENGTH('Products','categoryId') IS NULL
+
+BEGIN
+
+    ALTER TABLE Products
+
+    ADD categoryId INT NULL;
+
+END
+
+`);
+
+
+// =====================================
+// FOREIGN KEY
+// =====================================
+
+        await pool.request().query(`
+
+IF NOT EXISTS (
+
+SELECT *
+
+FROM sys.foreign_keys
+
+WHERE name='FK_Product_Category'
+
+)
+
+BEGIN
+
+ALTER TABLE Products
+
+ADD CONSTRAINT FK_Product_Category
+
+FOREIGN KEY(categoryId)
+
+REFERENCES Categories(id);
+
+END
+
+`);
+
+        console.log("Products linked to Categories.");
 
     }
     catch (error) {

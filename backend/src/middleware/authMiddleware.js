@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
-
-const JWT_SECRET = "shoppingbyamal";
+require("dotenv").config();
 
 function authenticateToken(req, res, next) {
 
@@ -24,7 +23,10 @@ function authenticateToken(req, res, next) {
 
     try {
 
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
 
         req.user = decoded;
 

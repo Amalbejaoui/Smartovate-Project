@@ -1,0 +1,84 @@
+.latest-products{
+
+
+    padding:70px 5%;
+
+
+}
+
+
+
+
+.latest-products h2{
+
+
+    text-align:center;
+
+    font-family:"Playfair Display",serif;
+
+    font-size:40px;
+
+    color:#b76e79;
+
+
+}
+
+
+
+
+.section-subtitle{
+
+
+    text-align:center;
+
+    color:#777;
+
+    margin-bottom:40px;
+
+
+}
+
+
+
+
+.products-grid{
+
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:30px;
+
+
+}
+
+
+
+
+@media(max-width:992px){
+
+
+    .products-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+
+}
+
+
+
+
+@media(max-width:600px){
+
+
+    .products-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+}

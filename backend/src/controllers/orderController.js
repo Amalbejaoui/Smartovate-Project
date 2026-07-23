@@ -2,7 +2,7 @@ const Order = require("../models/orderModel");
 
 
 // ===================================
-// CREATE ORDER
+// CREATE ORDER (CHECKOUT)
 // ===================================
 async function createOrder(req, res) {
 
@@ -10,8 +10,7 @@ async function createOrder(req, res) {
 
         const userId = req.user.id;
 
-        const orderId =
-            await Order.createOrder(userId);
+        const order = await Order.createOrder(userId);
 
         res.status(201).json({
 
@@ -19,7 +18,7 @@ async function createOrder(req, res) {
 
             message: "Order created successfully.",
 
-            orderId
+            data: order
 
         });
 
@@ -27,7 +26,7 @@ async function createOrder(req, res) {
 
     catch (error) {
 
-        console.log(error);
+        console.error(error);
 
         res.status(500).json({
 
@@ -44,7 +43,7 @@ async function createOrder(req, res) {
 
 
 // ===================================
-// MY ORDERS
+// GET MY ORDERS
 // ===================================
 async function getMyOrders(req, res) {
 
@@ -52,12 +51,13 @@ async function getMyOrders(req, res) {
 
         const userId = req.user.id;
 
-        const orders =
-            await Order.getMyOrders(userId);
+        const orders = await Order.getMyOrders(userId);
 
         res.status(200).json({
 
             success: true,
+
+            count: orders.length,
 
             data: orders
 
@@ -67,7 +67,7 @@ async function getMyOrders(req, res) {
 
     catch (error) {
 
-        console.log(error);
+        console.error(error);
 
         res.status(500).json({
 
@@ -84,18 +84,19 @@ async function getMyOrders(req, res) {
 
 
 // ===================================
-// ADMIN GET ALL ORDERS
+// GET ALL ORDERS (ADMIN)
 // ===================================
 async function getAllOrders(req, res) {
 
     try {
 
-        const orders =
-            await Order.getAllOrders();
+        const orders = await Order.getAllOrders();
 
         res.status(200).json({
 
             success: true,
+
+            count: orders.length,
 
             data: orders
 
@@ -105,13 +106,13 @@ async function getAllOrders(req, res) {
 
     catch (error) {
 
-        console.log(error);
+        console.error(error);
 
         res.status(500).json({
 
             success: false,
 
-            message: "Error."
+            message: "Error loading orders."
 
         });
 
@@ -122,7 +123,7 @@ async function getAllOrders(req, res) {
 
 
 // ===================================
-// UPDATE STATUS
+// UPDATE ORDER STATUS
 // ===================================
 async function updateStatus(req, res) {
 
@@ -130,10 +131,31 @@ async function updateStatus(req, res) {
 
         const { status } = req.body;
 
+        const allowedStatus = [
+
+            "Pending",
+            "Confirmed",
+            "Shipped",
+            "Delivered",
+            "Cancelled"
+
+        ];
+
+        if (!allowedStatus.includes(status)) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message: "Invalid status."
+
+            });
+
+        }
+
         await Order.updateStatus(
 
             req.params.id,
-
             status
 
         );
@@ -142,7 +164,7 @@ async function updateStatus(req, res) {
 
             success: true,
 
-            message: "Status updated."
+            message: "Order status updated successfully."
 
         });
 
@@ -150,7 +172,7 @@ async function updateStatus(req, res) {
 
     catch (error) {
 
-        console.log(error);
+        console.error(error);
 
         res.status(500).json({
 
@@ -163,7 +185,6 @@ async function updateStatus(req, res) {
     }
 
 }
-
 
 module.exports = {
 

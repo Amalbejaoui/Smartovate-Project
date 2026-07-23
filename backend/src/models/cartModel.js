@@ -8,7 +8,7 @@ async function addToCart(userId, productId, quantity) {
 
     const pool = await poolPromise;
 
-    // Check if product already exists in cart
+    // Check if product already exists
     const existing = await pool
         .request()
         .input("userId", userId)
@@ -49,6 +49,7 @@ async function addToCart(userId, productId, quantity) {
                 productId,
                 quantity
             )
+
             VALUES
                 (
                     @userId,
@@ -75,20 +76,31 @@ async function getCart(userId) {
             SELECT
 
                 CartItems.id,
+
+                Products.id AS productId,
+
                 Products.name,
+
                 Products.price,
+
                 Products.imageUrl,
-                CartItems.quantity
+
+                CartItems.quantity,
+
+                (Products.price * CartItems.quantity) AS total
 
             FROM CartItems
 
                      INNER JOIN Products
-                                ON CartItems.productId = Products.id
+                                ON Products.id = CartItems.productId
 
             WHERE CartItems.userId=@userId
+
+            ORDER BY CartItems.id DESC
         `);
 
     return result.recordset;
+
 }
 
 
@@ -107,6 +119,8 @@ async function removeFromCart(id) {
             DELETE FROM CartItems
             WHERE id=@id
         `);
+
+    return true;
 
 }
 

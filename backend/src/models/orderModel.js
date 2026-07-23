@@ -1,5 +1,5 @@
+const sql = require("mssql");
 const { poolPromise } = require("../config/db");
-
 
 // =======================================
 // CREATE ORDER FROM CART
@@ -7,101 +7,142 @@ const { poolPromise } = require("../config/db");
 async function createOrder(userId) {
 
     const pool = await poolPromise;
+    const transaction = new sql.Transaction(pool);
 
-    // Get Cart
-    const cart = await pool
-        .request()
-        .input("userId", userId)
-        .query(`
-            SELECT
-                CartItems.productId,
-                CartItems.quantity,
-                Products.price
-            FROM CartItems
-            INNER JOIN Products
-            ON CartItems.productId = Products.id
-            WHERE CartItems.userId=@userId
-        `);
+    try {
 
-    const items = cart.recordset;
+        await transaction.begin();
 
-    if (items.length === 0) {
-        throw new Error("Cart is empty");
-    }
-
-
-    // Calculate Total
-    let total = 0;
-
-    items.forEach(item => {
-        total += item.price * item.quantity;
-    });
-
-
-    // Create Order
-    const order = await pool
-        .request()
-        .input("userId", userId)
-        .input("total", total)
-        .query(`
-            INSERT INTO Orders
-            (
-                userId,
-                total
-            )
-
-            OUTPUT INSERTED.id
-
-            VALUES
-            (
-                @userId,
-                @total
-            )
-        `);
-
-    const orderId = order.recordset[0].id;
-
-
-    // Insert Order Items
-    for (const item of items) {
-
-        await pool
-            .request()
-            .input("orderId", orderId)
-            .input("productId", item.productId)
-            .input("quantity", item.quantity)
-            .input("price", item.price)
+        // ==========================
+        // GET CART
+        // ==========================
+        const cartResult = await new sql.Request(transaction)
+            .input("userId", userId)
             .query(`
-                INSERT INTO OrderItems
-                (
-                    orderId,
-                    productId,
-                    quantity,
-                    price
-                )
-
-                VALUES
-                (
-                    @orderId,
-                    @productId,
-                    @quantity,
-                    @price
-                )
+                SELECT
+                    CartItems.productId,
+                    CartItems.quantity,
+                    Products.name,
+                    Products.price,
+                    Products.stock
+                FROM CartItems
+                         INNER JOIN Products
+                                    ON CartItems.productId = Products.id
+                WHERE CartItems.userId=@userId
             `);
 
+        const items = cartResult.recordset;
+
+        if (items.length === 0) {
+            throw new Error("Cart is empty.");
+        }
+
+        // ==========================
+        // CHECK STOCK + TOTAL
+        // ==========================
+        let total = 0;
+
+        for (const item of items) {
+
+            if (item.stock < item.quantity) {
+                throw new Error(
+                    `${item.name} has only ${item.stock} items left in stock.`
+                );
+            }
+
+            total += item.price * item.quantity;
+        }
+
+        // ==========================
+        // CREATE ORDER
+        // ==========================
+        const orderResult = await new sql.Request(transaction)
+            .input("userId", userId)
+            .input("total", total)
+            .query(`
+                INSERT INTO Orders
+                (
+                    userId,
+                    total
+                )
+
+                    OUTPUT INSERTED.id
+
+                VALUES
+                    (
+                    @userId,
+                    @total
+                    )
+            `);
+
+        const orderId = orderResult.recordset[0].id;
+
+        // ==========================
+        // INSERT ORDER ITEMS
+        // ==========================
+        for (const item of items) {
+
+            await new sql.Request(transaction)
+                .input("orderId", orderId)
+                .input("productId", item.productId)
+                .input("quantity", item.quantity)
+                .input("price", item.price)
+                .query(`
+                    INSERT INTO OrderItems
+                    (
+                        orderId,
+                        productId,
+                        quantity,
+                        price
+                    )
+
+                    VALUES
+                        (
+                            @orderId,
+                            @productId,
+                            @quantity,
+                            @price
+                        )
+                `);
+
+            // ==========================
+            // UPDATE STOCK
+            // ==========================
+            await new sql.Request(transaction)
+                .input("productId", item.productId)
+                .input("quantity", item.quantity)
+                .query(`
+                    UPDATE Products
+                    SET stock = stock - @quantity
+                    WHERE id=@productId
+                `);
+
+        }
+
+        // ==========================
+        // EMPTY CART
+        // ==========================
+        await new sql.Request(transaction)
+            .input("userId", userId)
+            .query(`
+                DELETE FROM CartItems
+                WHERE userId=@userId
+            `);
+
+        await transaction.commit();
+
+        return {
+            orderId,
+            total
+        };
+
+    } catch (error) {
+
+        await transaction.rollback();
+
+        throw error;
+
     }
-
-
-    // Empty Cart
-    await pool
-        .request()
-        .input("userId", userId)
-        .query(`
-            DELETE FROM CartItems
-            WHERE userId=@userId
-        `);
-
-    return orderId;
 
 }
 
@@ -114,8 +155,7 @@ async function getMyOrders(userId) {
 
     const pool = await poolPromise;
 
-    const result = await pool
-        .request()
+    const result = await pool.request()
         .input("userId", userId)
         .query(`
             SELECT *
@@ -131,18 +171,22 @@ async function getMyOrders(userId) {
 
 
 // =======================================
-// GET ALL ORDERS (ADMIN)
+// GET ALL ORDERS
 // =======================================
 async function getAllOrders() {
 
     const pool = await poolPromise;
 
-    const result = await pool
-        .request()
+    const result = await pool.request()
         .query(`
-            SELECT *
+            SELECT
+                Orders.*,
+                Users.fullName,
+                Users.email
             FROM Orders
-            ORDER BY createdAt DESC
+                     INNER JOIN Users
+                                ON Orders.userId = Users.id
+            ORDER BY Orders.createdAt DESC
         `);
 
     return result.recordset;
@@ -152,14 +196,13 @@ async function getAllOrders() {
 
 
 // =======================================
-// UPDATE STATUS
+// UPDATE ORDER STATUS
 // =======================================
 async function updateStatus(id, status) {
 
     const pool = await poolPromise;
 
-    await pool
-        .request()
+    await pool.request()
         .input("id", id)
         .input("status", status)
         .query(`
@@ -168,9 +211,8 @@ async function updateStatus(id, status) {
             WHERE id=@id
         `);
 
+    return true;
 }
-
-
 
 module.exports = {
 

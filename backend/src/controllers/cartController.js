@@ -35,9 +35,7 @@ async function addToCart(req, res) {
             message: "Product added to cart."
         });
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.log(error);
 
@@ -61,20 +59,32 @@ async function getCart(req, res) {
 
         const userId = req.user.id;
 
-        const cart =
-            await Cart.getCart(userId);
+        const cart = await Cart.getCart(userId);
+
+        let grandTotal = 0;
+        let totalQuantity = 0;
+
+        cart.forEach(item => {
+
+            grandTotal += Number(item.total);
+
+            totalQuantity += item.quantity;
+
+        });
 
         res.status(200).json({
 
             success: true,
 
-            data: cart
+            totalQuantity,
+
+            grandTotal,
+
+            items: cart
 
         });
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.log(error);
 
@@ -109,9 +119,7 @@ async function removeFromCart(req, res) {
 
         });
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.log(error);
 
@@ -126,7 +134,6 @@ async function removeFromCart(req, res) {
     }
 
 }
-
 
 module.exports = {
 

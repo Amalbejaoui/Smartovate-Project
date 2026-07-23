@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap');
+
+
+
+body{
+
+    font-family:Poppins,sans-serif;
+
+}
+
+
+
+
+.custom-navbar{
+
+    background:white;
+
+    padding:18px 0;
+
+}
+
+
+
+
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-family:"Playfair Display",serif;
+
+    font-size:30px;
+
+    color:#b76e79;
+
+    font-weight:bold;
+
+    text-decoration:none;
+
+}
+
+
+
+
+.logo:hover{
+
+    color:#d98c9a;
+
+}
+
+
+
+
+
+.logo-img{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #d4af37;
+
+}
+
+
+
+
+
+.nav-link{
+
+    margin:0 12px;
+
+    color:#444;
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+
+
+.nav-link:hover{
+
+    color:#b76e79;
+
+}
+
+
+
+
+
+
+.icons{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+
+
+
+
+.icons i{
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    color:#444;
+
+    transition:.3s;
+
+}
+
+
+
+
+
+.icons i:hover{
+
+    color:#b76e79;
+
+    transform:scale(1.15);
+
+}
+
+
+
+
+
+.cart-icon{
+
+    position:relative;
+
+    text-decoration:none;
+
+}
+
+
+
+
+
+.cart-badge{
+
+
+    position:absolute;
+
+    top:-12px;
+
+    right:-12px;
+
+
+    background:#e91e63;
+
+
+    color:white;
+
+
+    width:22px;
+
+    height:22px;
+
+
+    border-radius:50%;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    font-size:12px;
+
+    font-weight:bold;
+
+
+}
+
+
+
+
+
+
+
+.user-name{
+
+    color:#b76e79;
+
+    font-weight:600;
+
+}
+
+
+
+
+
+.login-btn,
+
+.register-btn{
+
+
+    border:none;
+
+
+    padding:10px 22px;
+
+
+    border-radius:30px;
+
+
+    font-weight:600;
+
+
+    cursor:pointer;
+
+
+}
+
+
+
+
+
+.login-btn{
+
+
+    background:#b76e79;
+
+    color:white;
+
+
+}
+
+
+
+
+.login-btn:hover{
+
+
+    background:#d98c9a;
+
+
+}
+
+
+
+
+
+.register-btn{
+
+
+    background:#d4af37;
+
+    color:white;
+
+
+}
+
+
+
+
+
+.register-btn:hover{
+
+
+    background:#b8941f;
+
+
+}
