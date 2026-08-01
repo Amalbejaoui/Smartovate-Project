@@ -1,33 +1,60 @@
 const express = require("express");
+
 const router = express.Router();
 
-const validateProduct = require("../middleware/productValidation");
-const authenticateToken = require("../middleware/authMiddleware");
-const isAdmin = require("../middleware/adminMiddleware");
+const validateProduct =
+    require("../middleware/productValidation");
+
+const authenticateToken =
+    require("../middleware/authMiddleware");
+
+const isAdmin =
+    require("../middleware/adminMiddleware");
+
 
 const {
+
     getProducts,
+    getProductById,
     addProduct,
     updateProduct,
     removeProduct
+
 } = require("../controllers/productController");
 
 
 // ===================================
-// GET PRODUCTS
-// Everyone can view products
+// GET ALL PRODUCTS
+// Everyone
 // ===================================
-router.get("/", getProducts);
+
+router.get(
+    "/",
+    getProducts
+);
+
+
+// ===================================
+// GET ONE PRODUCT
+// Everyone
+// IMPORTANT: before admin routes
+// ===================================
+
+router.get(
+    "/:id",
+    getProductById
+);
 
 
 // ===================================
 // CREATE PRODUCT
 // Admin Only
 // ===================================
+
 router.post(
     "/",
     authenticateToken,
-    isAdmin,
+    isAdmin("admin"),
     validateProduct,
     addProduct
 );
@@ -37,10 +64,11 @@ router.post(
 // UPDATE PRODUCT
 // Admin Only
 // ===================================
+
 router.put(
     "/:id",
     authenticateToken,
-    isAdmin,
+    isAdmin("admin"),
     validateProduct,
     updateProduct
 );
@@ -50,10 +78,11 @@ router.put(
 // DELETE PRODUCT
 // Admin Only
 // ===================================
+
 router.delete(
     "/:id",
     authenticateToken,
-    isAdmin,
+    isAdmin("admin"),
     removeProduct
 );
 

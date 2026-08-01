@@ -1,0 +1,549 @@
+.admin-complaints-page {
+
+    min-height: 100vh;
+
+    padding: 45px;
+
+    background: #fff8fb;
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.admin-complaints-header {
+
+    max-width: 1200px;
+
+    margin: 0 auto 35px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.admin-complaints-header h1 {
+
+    margin: 0;
+
+    color: #333;
+
+    font-size: 32px;
+
+}
+
+
+.admin-complaints-header p {
+
+    margin-top: 8px;
+
+    color: #888;
+
+}
+
+
+.complaints-count {
+
+    background: #b76e79;
+
+    color: white;
+
+    padding: 12px 22px;
+
+    border-radius: 25px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================
+   LIST
+========================= */
+
+.admin-complaints-list {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 25px;
+
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.admin-complaint-card {
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    border: 1px solid #f1e3e7;
+
+    box-shadow:
+            0 8px 25px rgba(0,0,0,.07);
+
+}
+
+
+/* =========================
+   TOP
+========================= */
+
+.complaint-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+.complaint-top span:first-child {
+
+    color: #999;
+
+    font-size: 13px;
+
+}
+
+
+.complaint-top h2 {
+
+    margin: 5px 0 0;
+
+    color: #444;
+
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.complaint-status {
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+.complaint-status.pending {
+
+    background: #fff1c9;
+
+    color: #a87900;
+
+}
+
+
+.complaint-status.in.progress {
+
+    background: #e7eefc;
+
+    color: #5572a8;
+
+}
+
+
+.complaint-status.resolved {
+
+    background: #dff5e5;
+
+    color: #3c8a52;
+
+}
+
+
+.complaint-status.rejected {
+
+    background: #f8d9df;
+
+    color: #a33f58;
+
+}
+
+
+/* =========================
+   CUSTOMER
+========================= */
+
+.complaint-customer {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+
+    padding: 20px 0;
+
+}
+
+
+.complaint-customer div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.complaint-customer span {
+
+    color: #999;
+
+    font-size: 13px;
+
+}
+
+
+.complaint-customer strong {
+
+    color: #444;
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.complaint-message {
+
+    background: #fff8fb;
+
+    padding: 18px;
+
+    border-radius: 15px;
+
+}
+
+
+.complaint-message span {
+
+    color: #999;
+
+    font-size: 13px;
+
+}
+
+
+.complaint-message p {
+
+    color: #555;
+
+    line-height: 1.6;
+
+    margin-bottom: 0;
+
+}
+
+
+/* =========================
+   REPLY
+========================= */
+
+.complaint-reply {
+
+    margin-top: 20px;
+
+}
+
+
+.complaint-reply label {
+
+    display: block;
+
+    color: #555;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+}
+
+
+.complaint-reply textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px;
+
+    border: 1px solid #ead9df;
+
+    border-radius: 12px;
+
+    resize: vertical;
+
+    outline: none;
+
+    font-family: inherit;
+
+}
+
+
+.complaint-reply textarea:focus {
+
+    border-color: #b76e79;
+
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.complaint-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 15px;
+
+}
+
+
+.complaint-actions select {
+
+    padding: 10px 14px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    background: white;
+
+    outline: none;
+
+}
+
+
+.save-complaint-btn {
+
+    border: none;
+
+    background: #b76e79;
+
+    color: white;
+
+    padding: 10px 18px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+}
+
+
+.save-complaint-btn:hover {
+
+    background: #d98c9a;
+
+}
+
+
+.delete-complaint-btn {
+
+    border: none;
+
+    background: #f5d6dc;
+
+    color: #a33f58;
+
+    padding: 10px 18px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================
+   EXISTING REPLY
+========================= */
+
+.existing-reply {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    background: #f8f3f5;
+
+    border-radius: 12px;
+
+}
+
+
+.existing-reply strong {
+
+    color: #a95773;
+
+}
+
+
+.existing-reply p {
+
+    margin-bottom: 0;
+
+    color: #555;
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+.complaint-date {
+
+    margin-top: 15px;
+
+    color: #aaa;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.admin-complaints-loading {
+
+    text-align: center;
+
+    padding-top: 100px;
+
+    color: #b76e79;
+
+    font-size: 20px;
+
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.admin-no-complaints {
+
+    max-width: 600px;
+
+    margin: 80px auto;
+
+    text-align: center;
+
+    background: white;
+
+    padding: 50px;
+
+    border-radius: 20px;
+
+}
+
+
+.complaint-empty-icon {
+
+    font-size: 50px;
+
+}
+
+
+.admin-no-complaints h2 {
+
+    color: #444;
+
+}
+
+
+.admin-no-complaints p {
+
+    color: #999;
+
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    .admin-complaints-page {
+
+        padding: 25px 15px;
+
+    }
+
+
+    .admin-complaints-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+    }
+
+
+    .complaint-customer {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .complaint-actions {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+}

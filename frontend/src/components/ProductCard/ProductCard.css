@@ -1,136 +1,287 @@
-.product-card{
+.product-card {
 
+    background: white;
 
-    background:white;
+    border-radius: 24px;
 
-    border-radius:20px;
+    padding: 15px;
 
-    padding:20px;
+    text-align: center;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    border: 1px solid rgba(232, 180, 199, 0.25);
 
-    transition:.3s;
+    box-shadow:
+            0 8px 30px rgba(198, 122, 149, 0.10);
 
-}
-
-
-
-.product-card:hover{
-
-
-    transform:translateY(-8px);
-
+    transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
 
 }
 
 
+.product-card:hover {
 
-.image-box{
+    transform: translateY(-8px);
 
-
-    height:280px;
-
-    overflow:hidden;
-
-    border-radius:15px;
-
+    box-shadow:
+            0 18px 40px rgba(198, 122, 149, 0.20);
 
 }
 
 
+/* =========================
+   IMAGE
+========================= */
 
-.image-box img{
+.image-box {
 
+    width: 100%;
 
-    width:100%;
+    height: 310px;
 
-    height:100%;
+    overflow: hidden;
 
-    object-fit:cover;
-
-
-}
-
-
-
-.product-card h3{
-
-
-    margin-top:20px;
-
-    font-family:"Playfair Display",serif;
-
-    color:#444;
-
+    border-radius: 18px;
 
 }
 
 
+.image-box img {
 
-.product-card p{
+    width: 100%;
 
+    height: 100%;
 
-    color:#777;
+    object-fit: cover;
 
-
-}
-
-
-
-.price-row{
-
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-top:20px;
-
+    display: block;
 
 }
 
 
+/* =========================
+   NAME
+========================= */
 
-.price{
+.product-card h3 {
 
+    margin: 18px 5px 8px;
 
-    color:#b76e79;
+    color: #333;
 
-    font-size:20px;
+    font-family:
+            "Playfair Display",
+            Georgia,
+            serif;
 
-    font-weight:bold;
-
-
-}
-
-
-
-.price-row button{
-
-
-    border:none;
-
-    background:#b76e79;
-
-    color:white;
-
-    padding:10px 18px;
-
-    border-radius:25px;
-
-    cursor:pointer;
-
+    font-size: 21px;
 
 }
 
 
+/* =========================
+   DESCRIPTION
+========================= */
 
-.price-row button:hover{
+.product-card p {
+
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    min-height: 42px;
+
+    margin: 0 5px 10px;
+
+}
 
 
-    background:#d98c9a;
+/* =========================
+   PRICE
+========================= */
 
+.product-price {
+
+    color: #b76e79;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    margin: 15px 0;
+
+}
+
+
+/* =========================
+   DETAILS BUTTON
+========================= */
+
+.details-btn {
+
+    display: block !important;
+
+    width: 100% !important;
+
+    padding: 12px 20px !important;
+
+    margin-bottom: 10px !important;
+
+    border: none !important;
+
+    border-radius: 50px !important;
+
+    background: #f3d0dc !important;
+
+    color: #a95773 !important;
+
+    font-size: 14px !important;
+
+    font-weight: 600 !important;
+
+    cursor: pointer !important;
+
+    opacity: 1 !important;
+
+    visibility: visible !important;
+
+}
+
+
+.details-btn:hover {
+
+    background: #e7b4c5 !important;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* =========================
+   CART BUTTON
+========================= */
+
+.cart-btn {
+
+    display: block !important;
+
+    width: 100% !important;
+
+    padding: 12px 20px !important;
+
+    border: none !important;
+
+    border-radius: 50px !important;
+
+    background: #b76e79 !important;
+
+    color: white !important;
+
+    font-size: 14px !important;
+
+    font-weight: 600 !important;
+
+    cursor: pointer !important;
+
+    opacity: 1 !important;
+
+    visibility: visible !important;
+
+}
+
+
+.cart-btn:hover {
+
+    background: #d98c9a !important;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* =========================
+   OUT OF STOCK
+========================= */
+
+.cart-btn.out-of-stock {
+
+    background: #aaa !important;
+
+    cursor: not-allowed !important;
+
+    opacity: 0.7 !important;
+
+}
+
+
+.cart-btn.out-of-stock:hover {
+
+    transform: none;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .image-box {
+
+        height: 330px;
+
+    }
+
+    .details-btn,
+    .cart-btn {
+
+        width: 100% !important;
+
+    }
+
+}
+.product-card {
+    position: relative;
+}
+
+.wishlist-btn {
+
+    position: absolute;
+
+    top: 25px;
+
+    right: 25px;
+
+    width: 45px;
+
+    height: 45px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.95);
+
+    color: #c67a95;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    z-index: 5;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,.12);
+
+}
+
+.wishlist-btn.active {
+
+    color: #c67a95;
+
+    background: #fff0f4;
 
 }

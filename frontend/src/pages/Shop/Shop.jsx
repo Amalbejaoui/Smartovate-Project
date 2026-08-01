@@ -1,30 +1,65 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import api from "../../services/api";
+
+import ProductCard from "../../components/ProductCard/ProductCard";
+
 import "./Shop.css";
-import { useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+
 
 function Shop() {
-
 
     const [products, setProducts] = useState([]);
 
     const [loading, setLoading] = useState(true);
 
-    const { addToCart } = useContext(CartContext);
+    const [searchParams] = useSearchParams();
+
+
+    // =====================================
+    // CATEGORY FROM URL
+    // =====================================
+
+    const categoryId = searchParams.get("category");
+
+
+    // =====================================
+    // CATEGORY NAMES
+    // =====================================
+
+    const categories = {
+
+        1: "Dresses",
+
+        2: "Bags",
+
+        3: "Shoes",
+
+        4: "Accessories",
+
+        5: "Frip de Luxe"
+
+    };
+
+
+    // =====================================
+    // GET PRODUCTS
+    // =====================================
 
     useEffect(() => {
 
         getProducts();
 
-    }, []);
-
-
+    }, [categoryId]);
 
 
     const getProducts = async () => {
 
         try {
+
+            setLoading(true);
+
 
             const res = await api.get("/products");
 
@@ -32,37 +67,52 @@ function Shop() {
             console.log("Products API:", res.data);
 
 
+            const allProducts = res.data.data || [];
 
-            setProducts(res.data.data || []);
 
+            // =================================
+            // FILTER BY CATEGORY
+            // =================================
+
+            if (categoryId) {
+
+                const filteredProducts = allProducts.filter(
+                    (product) =>
+                        Number(product.categoryId) ===
+                        Number(categoryId)
+                );
+
+
+                setProducts(filteredProducts);
+
+            } else {
+
+                setProducts(allProducts);
+
+            }
 
 
         } catch (error) {
-
 
             console.log(
                 "Error fetching products:",
                 error
             );
 
-
             setProducts([]);
-
-
 
         } finally {
 
-
             setLoading(false);
-
 
         }
 
     };
 
 
-
-
+    // =====================================
+    // LOADING
+    // =====================================
 
     if (loading) {
 
@@ -79,109 +129,118 @@ function Shop() {
     }
 
 
+    // =====================================
+    // TITLE
+    // =====================================
+
+    const title = categoryId
+        ? `${categories[categoryId] || "Category"} ✨`
+        : "Our Collection ✨";
 
 
+    // =====================================
+    // PAGE
+    // =====================================
 
     return (
 
         <div className="shop-page">
 
 
+            {/* =========================
+                TITLE
+            ========================= */}
+
             <h1>
-                Our Collection ✨
+                {title}
             </h1>
 
 
+            {/* =========================
+                CATEGORY FILTER
+            ========================= */}
 
-            {
-                products.length === 0 ? (
+            {categoryId && (
 
-                    <h3 className="empty">
+                <div className="category-filter">
 
-                        No products available
+                    <span>
 
-                    </h3>
+                        Showing products from{" "}
 
+                        <strong>
+                            {categories[categoryId]}
+                        </strong>
 
-                ) : (
-
-
-                    <div className="products-container">
-
-
-                        {
-                            products.map((product) => (
+                    </span>
 
 
-                                <div
-                                    className="product-card"
-                                    key={product.id}
-                                >
-
-
-                                    <img
-
-                                        src={
-                                            product.imageUrl ||
-                                            "https://via.placeholder.com/300"
-                                        }
-
-                                        alt={product.name}
-
-                                    />
-
-
-                                    <h3>
-
-                                        {product.name}
-
-                                    </h3>
-
-
-                                    <p>
-
-                                        {product.description}
-
-                                    </p>
-
-
-                                    <div className="price">
-
-                                        {product.price} DT
-
-                                    </div>
-
-
-                                    <button
-                                        onClick={() => addToCart(product)}
-                                    >
-                                        Add To Cart 🛒
-                                    </button>
-
-
-                                </div>
-
-
-                            ))
-
+                    <button
+                        onClick={() =>
+                            window.location.href = "/shop"
                         }
+                    >
+
+                        View All Products
+
+                    </button>
+
+                </div>
+
+            )}
 
 
-                    </div>
+            {/* =========================
+                EMPTY
+            ========================= */}
+
+            {products.length === 0 ? (
+
+                <h3 className="empty">
+
+                    {categoryId
+
+                        ? `No products available in ${
+                            categories[categoryId] ||
+                            "this category"
+                        }`
+
+                        : "No products available"
+
+                    }
+
+                </h3>
+
+            ) : (
 
 
-                )
+                /* =========================
+                   PRODUCTS
+                ========================= */
 
-            }
+                <div className="products-container">
 
+                    {products.map((product) => (
 
+                        <ProductCard
+
+                            key={product.id}
+
+                            product={product}
+
+                        />
+
+                    ))}
+
+                </div>
+
+            )}
 
         </div>
 
     );
 
 }
-
 
 
 export default Shop;

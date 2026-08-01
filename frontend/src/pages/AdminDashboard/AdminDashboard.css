@@ -1,0 +1,720 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+
+:root {
+
+    --pink: #E8B4C7;
+    --pink-dark: #C67A95;
+    --pink-light: #F7DDE7;
+
+    --bg: #FFF9FB;
+    --white: #FFFFFF;
+
+    --text: #2F2F2F;
+    --muted: #8A8A8A;
+
+    --shadow:
+            0 10px 35px rgba(198, 122, 149, 0.12);
+
+}
+
+
+/* ================================
+   MAIN
+================================ */
+
+.admin-dashboard {
+
+    margin-left: 260px;
+
+    min-height: 100vh;
+
+    padding: 40px;
+
+    background:
+            radial-gradient(
+                    circle at top right,
+                    rgba(232,180,199,0.20),
+                    transparent 30%
+            ),
+            var(--bg);
+
+    font-family:
+            'Inter',
+            sans-serif;
+
+    color: var(--text);
+
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.dashboard-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 35px;
+
+}
+
+
+.dashboard-small-title {
+
+    margin: 0 0 5px;
+
+    color: var(--pink-dark);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+}
+
+
+.dashboard-header h1 {
+
+    margin: 0;
+
+    font-family:
+            'Playfair Display',
+            serif;
+
+    font-size: 36px;
+
+}
+
+
+.dashboard-subtitle {
+
+    margin-top: 8px;
+
+    color: var(--muted);
+
+}
+
+
+.dashboard-actions {
+
+    display: flex;
+
+    gap: 12px;
+
+}
+
+
+.dashboard-btn {
+
+    text-decoration: none;
+
+    padding: 13px 22px;
+
+    border-radius: 30px;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    var(--pink),
+                    var(--pink-dark)
+            );
+
+    color: white;
+
+    font-weight: 600;
+
+    box-shadow:
+            0 8px 20px
+            rgba(198,122,149,0.25);
+
+    transition: 0.3s;
+
+}
+
+
+.dashboard-btn:hover {
+
+    transform: translateY(-3px);
+
+    color: white;
+
+}
+
+
+.dashboard-btn.secondary {
+
+    background: white;
+
+    color: var(--pink-dark);
+
+    border: 1px solid var(--pink-light);
+
+}
+
+
+/* ================================
+   STATISTICS
+================================ */
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.stat-card {
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    box-shadow: var(--shadow);
+
+    border:
+            1px solid
+            rgba(232,180,199,0.20);
+
+    transition: 0.3s;
+
+}
+
+
+.stat-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+            0 18px 40px
+            rgba(198,122,149,0.18);
+
+}
+
+
+.stat-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--pink-light);
+
+    font-size: 26px;
+
+}
+
+
+.stat-card p {
+
+    margin: 0 0 5px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+}
+
+
+.stat-card h2 {
+
+    margin: 0;
+
+    font-size: 24px;
+
+}
+
+
+/* ================================
+   RECENT ORDERS
+================================ */
+
+.recent-orders {
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 30px;
+
+    box-shadow: var(--shadow);
+
+}
+
+
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-header h2 {
+
+    margin: 0;
+
+    font-family:
+            'Playfair Display',
+            serif;
+
+    font-size: 25px;
+
+}
+
+
+.section-header p {
+
+    margin: 5px 0 0;
+
+    color: var(--muted);
+
+}
+
+
+.section-header a {
+
+    color: var(--pink-dark);
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+}
+
+
+/* ================================
+   TABLE
+================================ */
+
+.orders-table-wrapper {
+
+    overflow-x: auto;
+
+}
+
+
+.dashboard-orders-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+.dashboard-orders-table thead {
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #2F2F2F,
+                    #424242
+            );
+
+}
+
+
+.dashboard-orders-table th {
+
+    color: white;
+
+    padding: 15px;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+
+}
+
+
+.dashboard-orders-table td {
+
+    padding: 17px 15px;
+
+    border-bottom:
+            1px solid
+            #f1e7eb;
+
+}
+
+
+.dashboard-orders-table tbody tr {
+
+    transition: 0.2s;
+
+}
+
+
+.dashboard-orders-table tbody tr:hover {
+
+    background: #FFF8FB;
+
+}
+
+
+/* ================================
+   CLIENT
+================================ */
+
+.client-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+}
+
+
+.client-info small {
+
+    color: var(--muted);
+
+}
+
+
+/* ================================
+   STATUS
+================================ */
+
+.status {
+
+    display: inline-block;
+
+    padding: 6px 13px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+.status.pending {
+
+    background: #FFF2CC;
+
+    color: #A67C00;
+
+}
+
+
+.status.confirmed {
+
+    background: #E5F1FF;
+
+    color: #3676B9;
+
+}
+
+
+.status.shipped {
+
+    background: #EDE5FF;
+
+    color: #7652B8;
+
+}
+
+
+.status.delivered {
+
+    background: #E3F7EC;
+
+    color: #27804F;
+
+}
+
+
+.status.cancelled {
+
+    background: #FFE5E5;
+
+    color: #C54A4A;
+
+}
+
+
+/* ================================
+   EMPTY
+================================ */
+
+.empty-orders {
+
+    text-align: center;
+
+    padding: 60px;
+
+    color: var(--muted);
+
+}
+
+
+.empty-orders div {
+
+    font-size: 45px;
+
+}
+
+
+.empty-orders h3 {
+
+    color: var(--text);
+
+}
+
+
+/* ================================
+   LOADING
+================================ */
+
+.admin-dashboard-loading {
+
+    margin-left: 260px;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--bg);
+
+    color: var(--pink-dark);
+
+    font-size: 20px;
+
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 1100px) {
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .admin-dashboard {
+
+        margin-left: 0;
+
+        padding: 25px 15px;
+
+    }
+
+
+    .dashboard-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+    }
+
+
+    .dashboard-actions {
+
+        width: 100%;
+
+    }
+
+
+    .dashboard-btn {
+
+        flex: 1;
+
+        text-align: center;
+
+    }
+
+
+    .stats-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .recent-orders {
+
+        padding: 20px;
+
+    }
+
+}
+/* =====================================
+   CHARTS
+===================================== */
+
+.charts-grid {
+
+    max-width: 1250px;
+
+    margin: 35px auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+
+}
+
+
+.chart-card {
+
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 25px;
+
+    border: 1px solid
+    rgba(232, 180, 199, 0.18);
+
+    box-shadow:
+            0 10px 35px
+            rgba(198, 122, 149, 0.10);
+
+}
+
+
+.chart-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+
+}
+
+
+.chart-header h2 {
+
+    margin: 0;
+
+    font-family:
+            "Playfair Display",
+            Georgia,
+            serif;
+
+    color: #2f2f2f;
+
+    font-size: 1.35rem;
+
+}
+
+
+.chart-header p {
+
+    margin: 6px 0 0;
+
+    color: #888;
+
+    font-size: 0.85rem;
+
+}
+
+
+.chart-container {
+
+    width: 100%;
+
+    min-height: 320px;
+
+}
+
+
+/* =====================================
+   RESPONSIVE CHARTS
+===================================== */
+
+@media (max-width: 900px) {
+
+    .charts-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .chart-card {
+
+        padding: 15px;
+
+        border-radius: 18px;
+
+    }
+
+    .chart-header h2 {
+
+        font-size: 1.15rem;
+
+    }
+
+}

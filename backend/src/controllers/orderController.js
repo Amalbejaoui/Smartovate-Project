@@ -2,21 +2,33 @@ const Order = require("../models/orderModel");
 
 
 // ===================================
-// CREATE ORDER (CHECKOUT)
+// CREATE ORDER
 // ===================================
+
 async function createOrder(req, res) {
 
     try {
 
         const userId = req.user.id;
 
-        const order = await Order.createOrder(userId);
+        const paymentMethod =
+            req.body.paymentMethod ||
+            "Cash on Delivery";
+
+
+        const order =
+            await Order.createOrder(
+                userId,
+                paymentMethod
+            );
+
 
         res.status(201).json({
 
             success: true,
 
-            message: "Order created successfully.",
+            message:
+                "Order created successfully.",
 
             data: order
 
@@ -41,17 +53,22 @@ async function createOrder(req, res) {
 }
 
 
-
 // ===================================
 // GET MY ORDERS
 // ===================================
+
 async function getMyOrders(req, res) {
 
     try {
 
         const userId = req.user.id;
 
-        const orders = await Order.getMyOrders(userId);
+
+        const orders =
+            await Order.getMyOrders(
+                userId
+            );
+
 
         res.status(200).json({
 
@@ -73,7 +90,8 @@ async function getMyOrders(req, res) {
 
             success: false,
 
-            message: "Error loading orders."
+            message:
+                "Error loading orders."
 
         });
 
@@ -82,15 +100,17 @@ async function getMyOrders(req, res) {
 }
 
 
+// ===================================
+// GET ALL ORDERS
+// ===================================
 
-// ===================================
-// GET ALL ORDERS (ADMIN)
-// ===================================
 async function getAllOrders(req, res) {
 
     try {
 
-        const orders = await Order.getAllOrders();
+        const orders =
+            await Order.getAllOrders();
+
 
         res.status(200).json({
 
@@ -112,59 +132,74 @@ async function getAllOrders(req, res) {
 
             success: false,
 
-            message: "Error loading orders."
+            message:
+                "Error loading orders."
 
         });
 
     }
 
 }
-
 
 
 // ===================================
 // UPDATE ORDER STATUS
 // ===================================
+
 async function updateStatus(req, res) {
 
     try {
 
-        const { status } = req.body;
+        const { status } =
+            req.body;
+
 
         const allowedStatus = [
 
             "Pending",
+
             "Confirmed",
+
             "Shipped",
+
             "Delivered",
+
             "Cancelled"
 
         ];
 
-        if (!allowedStatus.includes(status)) {
+
+        if (
+            !allowedStatus.includes(status)
+        ) {
 
             return res.status(400).json({
 
                 success: false,
 
-                message: "Invalid status."
+                message:
+                    "Invalid status."
 
             });
 
         }
 
+
         await Order.updateStatus(
 
             req.params.id,
+
             status
 
         );
+
 
         res.status(200).json({
 
             success: true,
 
-            message: "Order status updated successfully."
+            message:
+                "Order status updated successfully."
 
         });
 
@@ -178,7 +213,8 @@ async function updateStatus(req, res) {
 
             success: false,
 
-            message: "Update failed."
+            message:
+                "Update failed."
 
         });
 
@@ -186,11 +222,15 @@ async function updateStatus(req, res) {
 
 }
 
+
 module.exports = {
 
     createOrder,
+
     getMyOrders,
+
     getAllOrders,
+
     updateStatus
 
 };

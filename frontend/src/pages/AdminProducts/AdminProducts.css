@@ -1,0 +1,1149 @@
+/* =========================================================
+   ADMIN PRODUCTS
+   Premium Feminine Luxury Design
+   Shopping By Amal
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+
+:root {
+
+    --bg: #fff9fb;
+
+    --pink: #e8b4c7;
+
+    --pink-dark: #c67a95;
+
+    --pink-light: #fcecf2;
+
+    --gold: #d4af37;
+
+    --text: #2f2f2f;
+
+    --muted: #888;
+
+    --white: #ffffff;
+
+    --danger: #d86c6c;
+
+    --blue: #7299c7;
+
+    --shadow:
+            0 15px 45px rgba(198, 122, 149, 0.14);
+
+    --transition:
+            all 0.3s ease;
+
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.admin-products {
+
+    min-height: 100vh;
+
+    padding: 45px 50px 70px;
+
+    margin-left: 260px;
+
+    background:
+            radial-gradient(
+                    circle at top right,
+                    rgba(232,180,199,0.22),
+                    transparent 30%
+            ),
+            #fff9fb;
+
+    font-family: 'Inter', sans-serif;
+
+    color: var(--text);
+
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.top-bar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 35px;
+
+}
+
+
+.top-bar h1 {
+
+    margin: 0;
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 34px;
+
+    color: #2f2f2f;
+
+}
+
+
+.subtitle {
+
+    margin-top: 7px;
+
+    color: #999;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   ADD BUTTON
+========================================================= */
+
+.add-btn {
+
+    border: none;
+
+    padding: 14px 25px;
+
+    border-radius: 40px;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    var(--pink),
+                    var(--pink-dark)
+            );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+            0 8px 22px rgba(198,122,149,0.30);
+
+    transition: var(--transition);
+
+}
+
+
+.add-btn:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+            0 13px 30px rgba(198,122,149,0.40);
+
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+table {
+
+    width: 100%;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    overflow: hidden;
+
+    background: white;
+
+    border-radius: 22px;
+
+    box-shadow: var(--shadow);
+
+    border: 1px solid #f4e3e9;
+
+}
+
+
+thead {
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #303030,
+                    #454545
+            );
+
+}
+
+
+th {
+
+    padding: 18px 15px;
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+
+    text-align: center;
+
+}
+
+
+td {
+
+    padding: 17px 15px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #f6e7ec;
+
+    font-size: 14px;
+
+}
+
+
+tbody tr {
+
+    transition: var(--transition);
+
+}
+
+
+tbody tr:hover {
+
+    background: #fff8fb;
+
+}
+
+
+tbody tr:last-child td {
+
+    border-bottom: none;
+
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE
+========================================================= */
+
+td img {
+
+    width: 68px;
+
+    height: 68px;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+
+    box-shadow:
+            0 5px 15px rgba(0,0,0,0.10);
+
+    transition: var(--transition);
+
+}
+
+
+td img:hover {
+
+    transform: scale(1.08);
+
+}
+
+
+.no-image {
+
+    width: 68px;
+
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: auto;
+
+    border-radius: 15px;
+
+    background: #fdf0f5;
+
+    font-size: 25px;
+
+}
+
+
+/* =========================================================
+   STOCK
+========================================================= */
+
+.stock-ok {
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 30px;
+
+    background: #e8f7ef;
+
+    color: #2e8b57;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+.stock-out {
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 30px;
+
+    background: #fdeaea;
+
+    color: #c75b5b;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.edit,
+.delete {
+
+    border: none;
+
+    padding: 9px 16px;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    margin: 3px;
+
+    transition: var(--transition);
+
+}
+
+
+.edit {
+
+    background: #eaf1fb;
+
+    color: #5278a8;
+
+}
+
+
+.edit:hover {
+
+    background: var(--blue);
+
+    color: white;
+
+    transform: translateY(-2px);
+
+}
+
+
+.delete {
+
+    background: #fdeaea;
+
+    color: #c75b5b;
+
+}
+
+
+.delete:hover {
+
+    background: var(--danger);
+
+    color: white;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* =========================================================
+   MODAL BACKGROUND
+========================================================= */
+
+.modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+            rgba(35, 25, 30, 0.58);
+
+    backdrop-filter: blur(7px);
+
+    animation: fadeIn 0.25s ease;
+
+}
+
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+    }
+
+    to {
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.product-modal {
+
+    width: min(680px, 100%);
+
+    max-height: 92vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 28px;
+
+    padding: 0;
+
+    box-shadow:
+            0 30px 80px rgba(0,0,0,0.25);
+
+    animation: modalAppear 0.3s ease;
+
+}
+
+
+@keyframes modalAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(25px) scale(0.97);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0) scale(1);
+
+    }
+
+}
+
+
+/* scrollbar */
+
+.product-modal::-webkit-scrollbar {
+
+    width: 7px;
+
+}
+
+
+.product-modal::-webkit-scrollbar-thumb {
+
+    background: #e8b4c7;
+
+    border-radius: 20px;
+
+}
+
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.modal-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 27px 32px;
+
+    border-bottom: 1px solid #f3e3e9;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #fff9fb,
+                    #ffffff
+            );
+
+}
+
+
+.modal-header h2 {
+
+    margin: 0;
+
+    font-family: 'Playfair Display', serif;
+
+    font-size: 25px;
+
+    color: #2f2f2f;
+
+}
+
+
+.modal-header p {
+
+    margin: 6px 0 0;
+
+    color: #999;
+
+    font-size: 13px;
+
+}
+
+
+.close-btn {
+
+    width: 38px;
+
+    height: 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #fcecf2;
+
+    color: #c67a95;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+}
+
+
+.close-btn:hover {
+
+    background: #c67a95;
+
+    color: white;
+
+    transform: rotate(90deg);
+
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.product-form {
+
+    padding: 30px 32px 32px;
+
+}
+
+
+.form-group {
+
+    margin-bottom: 20px;
+
+}
+
+
+.form-group label,
+.image-upload-section > label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #444;
+
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border: 1px solid #eadde2;
+
+    border-radius: 13px;
+
+    background: #fff;
+
+    color: #333;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: var(--transition);
+
+}
+
+
+.form-group input:hover,
+.form-group textarea:hover,
+.form-group select:hover {
+
+    border-color: #e8b4c7;
+
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+
+    border-color: #c67a95;
+
+    box-shadow:
+            0 0 0 4px rgba(198,122,149,0.10);
+
+}
+
+
+.form-group textarea {
+
+    resize: vertical;
+
+    min-height: 90px;
+
+}
+
+
+.form-group select {
+
+    cursor: pointer;
+
+    appearance: auto;
+
+}
+
+
+/* =========================================================
+   PRICE + STOCK
+========================================================= */
+
+.form-row {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+
+}
+
+
+/* =========================================================
+   IMAGE UPLOAD
+========================================================= */
+
+.image-upload-section {
+
+    padding: 20px;
+
+    margin-bottom: 23px;
+
+    border-radius: 20px;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #fff8fb,
+                    #ffffff
+            );
+
+    border: 1px solid #f1dce5;
+
+    text-align: center;
+
+}
+
+
+/* preview */
+
+.image-preview {
+
+    width: 150px;
+
+    height: 150px;
+
+    margin: 5px auto 17px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    border: 2px dashed #e8b4c7;
+
+    background: #fff;
+
+}
+
+
+.image-preview img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+.image-placeholder {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #c67a95;
+
+    gap: 8px;
+
+}
+
+
+.image-placeholder span {
+
+    font-size: 12px;
+
+    color: #999;
+
+}
+
+
+/* upload button */
+
+.upload-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 10px 18px;
+
+    border-radius: 30px;
+
+    background: #2f2f2f;
+
+    color: white !important;
+
+    cursor: pointer;
+
+    font-size: 13px !important;
+
+    transition: var(--transition);
+
+}
+
+
+.upload-btn:hover {
+
+    background: #c67a95;
+
+    transform: translateY(-2px);
+
+}
+
+
+.upload-btn input {
+
+    display: none;
+
+}
+
+
+.image-upload-section small {
+
+    display: block;
+
+    margin-top: 10px;
+
+    color: #aaa;
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   CATEGORY WARNING
+========================================================= */
+
+.category-warning {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #c67a95;
+
+    font-size: 12px;
+
+    background: #fff4f7;
+
+    padding: 9px 12px;
+
+    border-radius: 10px;
+
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.form-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding-top: 10px;
+
+    margin-top: 10px;
+
+    border-top: 1px solid #f2e4e9;
+
+}
+
+
+.cancel-btn,
+.save-btn {
+
+    border: none;
+
+    padding: 12px 22px;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    font-family: 'Inter', sans-serif;
+
+    font-weight: 600;
+
+    font-size: 13px;
+
+    transition: var(--transition);
+
+}
+
+
+.cancel-btn {
+
+    background: #f3f3f3;
+
+    color: #666;
+
+}
+
+
+.cancel-btn:hover {
+
+    background: #e7e7e7;
+
+}
+
+
+.save-btn {
+
+    color: white;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #e8b4c7,
+                    #c67a95
+            );
+
+    box-shadow:
+            0 7px 18px rgba(198,122,149,0.28);
+
+}
+
+
+.save-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+            0 10px 25px rgba(198,122,149,0.38);
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-admin {
+
+    min-height: 60vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #c67a95;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.no-products {
+
+    padding: 60px !important;
+
+    color: #999;
+
+    font-size: 15px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1024px) {
+
+    .admin-products {
+
+        margin-left: 0;
+
+        padding: 35px 25px;
+
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .admin-products {
+
+        padding: 25px 15px;
+
+    }
+
+
+    .top-bar {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 18px;
+
+    }
+
+
+    .add-btn {
+
+        width: 100%;
+
+    }
+
+
+    .top-bar h1 {
+
+        font-size: 28px;
+
+    }
+
+
+    table {
+
+        display: block;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+
+    }
+
+
+    .product-modal {
+
+        max-height: 95vh;
+
+        border-radius: 20px;
+
+    }
+
+
+    .modal-header {
+
+        padding: 22px;
+
+    }
+
+
+    .product-form {
+
+        padding: 22px;
+
+    }
+
+
+    .form-row {
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
+    }
+
+
+    .form-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+
+    .cancel-btn,
+    .save-btn {
+
+        width: 100%;
+
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .admin-products {
+
+        padding: 20px 10px;
+
+    }
+
+
+    .modal-header h2 {
+
+        font-size: 21px;
+
+    }
+
+
+    .image-preview {
+
+        width: 125px;
+
+        height: 125px;
+
+    }
+
+}

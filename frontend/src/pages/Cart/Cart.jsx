@@ -1,205 +1,191 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
 import "./Cart.css";
 
 function Cart() {
 
     const {
-
         cart,
         removeFromCart,
         increaseQuantity,
         decreaseQuantity
-
     } = useContext(CartContext);
 
+    const navigate = useNavigate();
 
     const total = cart.reduce(
-
-        (sum, item) =>
-
-            sum + item.price * item.quantity,
-
+        (sum, item) => sum + Number(item.price) * item.quantity,
         0
-
     );
 
-    console.log(cart);
     return (
 
         <div className="cart-page">
 
             <h1 className="cart-title">
-
                 My Cart 🛒
-
             </h1>
 
+            {cart.length === 0 ? (
 
-            {
+                <div className="empty-cart">
 
-                cart.length === 0 ?
+                    <h2>
+                        Your cart is empty ❤️
+                    </h2>
 
-                    (
+                    <button
+                        className="continue-shopping"
+                        onClick={() => navigate("/shop")}
+                    >
+                        Continue Shopping
+                    </button>
 
-                        <h2 className="empty-cart">
+                </div>
 
-                            Your cart is empty ❤️
+            ) : (
 
-                        </h2>
+                <>
 
-                    )
+                    <div className="cart-container">
 
-                    :
+                        {cart.map(product => (
 
-                    (
+                            <div
+                                className="cart-card"
+                                key={product.id}
+                            >
 
-                        <>
+                                <div className="cart-image">
 
-                            <div className="cart-container">
+                                    <img
+                                        src={
+                                            product.imageUrl ||
+                                            "https://via.placeholder.com/150"
+                                        }
+                                        alt={product.name}
+                                    />
 
-                                {
+                                </div>
 
-                                    cart.map(product => (
 
-                                        <div
-                                            className="cart-card"
-                                            key={product.id}
-                                        >
+                                <div className="cart-info">
 
-                                            <div className="no-image">
+                                    <h3>
+                                        {product.name}
+                                    </h3>
 
-                                                🛍️
+                                    <p className="cart-description">
+                                        {product.description}
+                                    </p>
 
-                                            </div>
+                                    <p className="cart-price">
+                                        {product.price} DT
+                                    </p>
 
+                                </div>
 
-                                            <div className="cart-info">
 
-                                                <h3>
+                                <div className="quantity-box">
 
-                                                    {product.name}
+                                    <button
+                                        onClick={() =>
+                                            decreaseQuantity(product.id)
+                                        }
+                                    >
+                                        −
+                                    </button>
 
-                                                </h3>
+                                    <span>
+                                        {product.quantity}
+                                    </span>
 
-                                                <p className="cart-description">
+                                    <button
+                                        onClick={() =>
+                                            increaseQuantity(product.id)
+                                        }
+                                    >
+                                        +
+                                    </button>
 
-                                                    {product.description}
+                                </div>
 
-                                                </p>
 
-                                                <p className="cart-price">
+                                <div className="product-total">
 
-                                                    {product.price} DT
+                                    {(
+                                        Number(product.price) *
+                                        product.quantity
+                                    ).toFixed(2)} DT
 
-                                                </p>
+                                </div>
 
-                                            </div>
 
-
-
-                                            <div className="quantity-box">
-
-                                                <button
-                                                    onClick={() =>
-                                                        decreaseQuantity(product.id)
-                                                    }
-                                                >
-
-                                                    -
-
-                                                </button>
-
-
-                                                <span>
-
-                                                    {product.quantity}
-
-                                                </span>
-
-
-                                                <button
-                                                    onClick={() =>
-                                                        increaseQuantity(product.id)
-                                                    }
-                                                >
-
-                                                    +
-
-                                                </button>
-
-                                            </div>
-
-
-
-                                            <h4>
-
-                                                {
-
-                                                    product.price *
-
-                                                    product.quantity
-
-                                                } DT
-
-                                            </h4>
-
-
-
-                                            <button
-
-                                                className="remove-btn"
-
-                                                onClick={() =>
-                                                    removeFromCart(product.id)
-                                                }
-
-                                            >
-
-                                                Remove
-
-                                            </button>
-
-                                        </div>
-
-                                    ))
-
-                                }
-
-                            </div>
-
-
-
-                            <div className="cart-total">
-
-                                <h2>
-
-                                    Total :
-
-                                    {total} DT
-
-                                </h2>
-
-
-
-                                <button className="checkout-btn">
-
-                                    Checkout
-
+                                <button
+                                    className="remove-btn"
+                                    onClick={() =>
+                                        removeFromCart(product.id)
+                                    }
+                                >
+                                    Remove
                                 </button>
 
                             </div>
 
-                        </>
+                        ))}
 
-                    )
+                    </div>
 
-            }
+
+                    <div className="cart-summary">
+
+                        <div>
+
+                            <span>
+                                Number of items
+                            </span>
+
+                            <strong>
+                                {cart.reduce(
+                                    (sum, item) =>
+                                        sum + item.quantity,
+                                    0
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div className="total-row">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <strong>
+                                {total.toFixed(2)} DT
+                            </strong>
+
+                        </div>
+
+
+                        <button
+                            className="checkout-btn"
+                            onClick={() => navigate("/checkout")}
+                        >
+                            Proceed to Checkout 💳
+                        </button>
+
+                    </div>
+
+                </>
+
+            )}
 
         </div>
 
     );
-
 }
 
 export default Cart;

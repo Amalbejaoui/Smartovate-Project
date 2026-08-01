@@ -9,242 +9,442 @@ async function initializeDatabase() {
         // =====================================
         // PRODUCTS TABLE
         // =====================================
+
         await pool.request().query(`
             IF NOT EXISTS (
-                SELECT * FROM sysobjects
-                WHERE name='Products' AND xtype='U'
+                SELECT *
+                FROM sysobjects
+                WHERE name='Products'
+                AND xtype='U'
             )
-
-            CREATE TABLE Products (
-                id INT IDENTITY(1,1) PRIMARY KEY,
-                name NVARCHAR(100) NOT NULL,
-                description NVARCHAR(500),
-                price DECIMAL(10,2) NOT NULL,
-                stock INT NOT NULL,
-                imageUrl NVARCHAR(255),
-                createdAt DATETIME DEFAULT GETDATE()
-            );
+            BEGIN
+                CREATE TABLE Products (
+                    id INT IDENTITY(1,1) PRIMARY KEY,
+                    name NVARCHAR(100) NOT NULL,
+                    description NVARCHAR(500),
+                    price DECIMAL(10,2) NOT NULL,
+                    stock INT NOT NULL,
+                    imageUrl NVARCHAR(MAX),
+                    createdAt DATETIME DEFAULT GETDATE()
+                );
+            END
         `);
 
         console.log("Products table is ready.");
 
 
+        // =====================================
+        // FIX IMAGE URL SIZE
+        // =====================================
+
+        await pool.request().query(`
+            IF EXISTS (
+                SELECT *
+                FROM sys.columns
+                WHERE object_id = OBJECT_ID('Products')
+                AND name = 'imageUrl'
+            )
+            BEGIN
+                ALTER TABLE Products
+                ALTER COLUMN imageUrl NVARCHAR(MAX);
+            END
+        `);
+
+        console.log("Products imageUrl column is ready.");
+
+
+        // =====================================
+        // ADD isActive TO PRODUCTS
+        // =====================================
+
+        await pool.request().query(`
+            IF COL_LENGTH('Products', 'isActive') IS NULL
+            BEGIN
+                ALTER TABLE Products
+                ADD isActive BIT NOT NULL
+                CONSTRAINT DF_Products_isActive DEFAULT 1;
+            END
+        `);
+
+        console.log("Products isActive column is ready.");
+
 
         // =====================================
         // USERS TABLE
         // =====================================
+
         await pool.request().query(`
             IF NOT EXISTS (
-                SELECT * FROM sysobjects
-                WHERE name='Users' AND xtype='U'
+                SELECT *
+                FROM sysobjects
+                WHERE name='Users'
+                AND xtype='U'
             )
+            BEGIN
+                CREATE TABLE Users (
 
-            CREATE TABLE Users (
+                    id INT IDENTITY(1,1) PRIMARY KEY,
 
-                id INT IDENTITY(1,1) PRIMARY KEY,
+                    fullName NVARCHAR(100) NOT NULL,
 
-                fullName NVARCHAR(100) NOT NULL,
+                    email NVARCHAR(100) NOT NULL UNIQUE,
 
-                email NVARCHAR(100) NOT NULL UNIQUE,
+                    password NVARCHAR(255) NOT NULL,
 
-                password NVARCHAR(255) NOT NULL,
+                    role NVARCHAR(20) NOT NULL DEFAULT 'client',
 
-                role NVARCHAR(20) NOT NULL DEFAULT 'client',
+                    createdAt DATETIME DEFAULT GETDATE()
 
-                createdAt DATETIME DEFAULT GETDATE()
-
-            );
+                );
+            END
         `);
 
         console.log("Users table is ready.");
+
+
         // =====================================
-// CART TABLE
-// =====================================
+        // CART ITEMS TABLE
+        // =====================================
 
         await pool.request().query(`
+            IF NOT EXISTS (
+                SELECT *
+                FROM sysobjects
+                WHERE name='CartItems'
+                AND xtype='U'
+            )
+            BEGIN
+                CREATE TABLE CartItems (
 
-IF NOT EXISTS (
-    SELECT *
-    FROM sysobjects
-    WHERE name='CartItems'
-    AND xtype='U'
-)
+                    id INT IDENTITY(1,1) PRIMARY KEY,
 
-CREATE TABLE CartItems(
+                    userId INT NOT NULL,
 
-    id INT IDENTITY(1,1) PRIMARY KEY,
+                    productId INT NOT NULL,
 
-    userId INT NOT NULL,
+                    quantity INT NOT NULL DEFAULT 1,
 
-    productId INT NOT NULL,
+                    createdAt DATETIME DEFAULT GETDATE(),
 
-    quantity INT NOT NULL DEFAULT 1,
+                    FOREIGN KEY(userId)
+                        REFERENCES Users(id),
 
-    createdAt DATETIME DEFAULT GETDATE(),
+                    FOREIGN KEY(productId)
+                        REFERENCES Products(id)
 
-    FOREIGN KEY(userId) REFERENCES Users(id),
-
-    FOREIGN KEY(productId) REFERENCES Products(id)
-
-);
-
-`);
+                );
+            END
+        `);
 
         console.log("CartItems table is ready.");
+
+
         // =====================================
-// ORDERS TABLE
-// =====================================
+        // ORDERS TABLE
+        // =====================================
 
         await pool.request().query(`
+            IF NOT EXISTS (
+                SELECT *
+                FROM sysobjects
+                WHERE name='Orders'
+                AND xtype='U'
+            )
+            BEGIN
+                CREATE TABLE Orders (
 
-IF NOT EXISTS (
-    SELECT *
-    FROM sysobjects
-    WHERE name='Orders'
-    AND xtype='U'
-)
+                    id INT IDENTITY(1,1) PRIMARY KEY,
 
-CREATE TABLE Orders(
+                    userId INT NOT NULL,
 
-    id INT IDENTITY(1,1) PRIMARY KEY,
+                    total DECIMAL(10,2) NOT NULL,
 
-    userId INT NOT NULL,
+                    status NVARCHAR(30) DEFAULT 'Pending',
 
-    total DECIMAL(10,2) NOT NULL,
+                    paymentMethod NVARCHAR(30)
+                        DEFAULT 'Cash on Delivery',
 
-    status NVARCHAR(30) DEFAULT 'Pending',
+                    paymentStatus NVARCHAR(30)
+                        DEFAULT 'Pending',
 
-    createdAt DATETIME DEFAULT GETDATE(),
+                    paidAt DATETIME NULL,
 
-    FOREIGN KEY(userId)
-    REFERENCES Users(id)
+                    createdAt DATETIME DEFAULT GETDATE(),
 
-);
+                    FOREIGN KEY(userId)
+                        REFERENCES Users(id)
 
-`);
+                );
+            END
+        `);
 
         console.log("Orders table is ready.");
 
 
-// =====================================
-// ORDER ITEMS TABLE
-// =====================================
+        // =====================================
+        // ADD PAYMENT COLUMNS TO OLD ORDERS
+        // =====================================
 
         await pool.request().query(`
 
-IF NOT EXISTS (
-    SELECT *
-    FROM sysobjects
-    WHERE name='OrderItems'
-    AND xtype='U'
-)
+            IF COL_LENGTH('Orders', 'paymentMethod') IS NULL
+            BEGIN
+                ALTER TABLE Orders
+                ADD paymentMethod NVARCHAR(30)
+                DEFAULT 'Cash on Delivery';
+            END
 
-CREATE TABLE OrderItems(
+            IF COL_LENGTH('Orders', 'paymentStatus') IS NULL
+            BEGIN
+                ALTER TABLE Orders
+                ADD paymentStatus NVARCHAR(30)
+                DEFAULT 'Pending';
+            END
 
-    id INT IDENTITY(1,1) PRIMARY KEY,
+            IF COL_LENGTH('Orders', 'paidAt') IS NULL
+            BEGIN
+                ALTER TABLE Orders
+                ADD paidAt DATETIME NULL;
+            END
 
-    orderId INT NOT NULL,
+        `);
 
-    productId INT NOT NULL,
+        console.log("Orders payment fields are ready.");
 
-    quantity INT NOT NULL,
 
-    price DECIMAL(10,2) NOT NULL,
+        // =====================================
+        // ORDER ITEMS TABLE
+        // =====================================
 
-    FOREIGN KEY(orderId)
-    REFERENCES Orders(id),
+        await pool.request().query(`
+            IF NOT EXISTS (
+                SELECT *
+                FROM sysobjects
+                WHERE name='OrderItems'
+                AND xtype='U'
+            )
+            BEGIN
+                CREATE TABLE OrderItems (
 
-    FOREIGN KEY(productId)
-    REFERENCES Products(id)
+                    id INT IDENTITY(1,1) PRIMARY KEY,
 
-);
+                    orderId INT NOT NULL,
 
-`);
+                    productId INT NOT NULL,
+
+                    quantity INT NOT NULL,
+
+                    price DECIMAL(10,2) NOT NULL,
+
+                    FOREIGN KEY(orderId)
+                        REFERENCES Orders(id),
+
+                    FOREIGN KEY(productId)
+                        REFERENCES Products(id)
+
+                );
+            END
+        `);
 
         console.log("OrderItems table is ready.");
+
+
         // =====================================
-// CATEGORIES TABLE
-// =====================================
+        // CATEGORIES TABLE
+        // =====================================
 
         await pool.request().query(`
+            IF NOT EXISTS (
+                SELECT *
+                FROM sysobjects
+                WHERE name='Categories'
+                AND xtype='U'
+            )
+            BEGIN
+                CREATE TABLE Categories (
 
-IF NOT EXISTS (
-    SELECT *
-    FROM sysobjects
-    WHERE name='Categories'
-    AND xtype='U'
-)
+                    id INT IDENTITY(1,1) PRIMARY KEY,
 
-CREATE TABLE Categories(
+                    name NVARCHAR(100) NOT NULL UNIQUE,
 
-    id INT IDENTITY(1,1) PRIMARY KEY,
+                    createdAt DATETIME DEFAULT GETDATE()
 
-    name NVARCHAR(100) NOT NULL UNIQUE,
-
-    createdAt DATETIME DEFAULT GETDATE()
-
-);
-
-`);
+                );
+            END
+        `);
 
         console.log("Categories table is ready.");
 
 
-// =====================================
-// ADD categoryId TO PRODUCTS
-// =====================================
+        // =====================================
+        // DEFAULT CATEGORIES
+        // =====================================
+
+        const categoriesResult = await pool.request().query(`
+            SELECT COUNT(*) AS count
+            FROM Categories
+        `);
+
+        if (categoriesResult.recordset[0].count === 0) {
+
+            await pool.request().query(`
+                INSERT INTO Categories (name)
+                VALUES
+                    ('Dresses'),
+                    ('Bags'),
+                    ('Shoes'),
+                    ('Accessories'),
+                    ('Frip de Luxe');
+            `);
+
+            console.log("Default categories inserted.");
+
+        } else {
+
+            console.log("Categories already exist.");
+
+        }
+
+
+        // =====================================
+        // ADD categoryId TO PRODUCTS
+        // =====================================
 
         await pool.request().query(`
 
-IF COL_LENGTH('Products','categoryId') IS NULL
+            IF COL_LENGTH('Products', 'categoryId') IS NULL
+            BEGIN
 
-BEGIN
+                ALTER TABLE Products
+                ADD categoryId INT NULL;
 
-    ALTER TABLE Products
+            END
 
-    ADD categoryId INT NULL;
-
-END
-
-`);
+        `);
 
 
-// =====================================
-// FOREIGN KEY
+        // =====================================
+        // PRODUCTS → CATEGORIES FOREIGN KEY
+        // =====================================
+
+        await pool.request().query(`
+
+            IF NOT EXISTS (
+                SELECT *
+                FROM sys.foreign_keys
+                WHERE name = 'FK_Product_Category'
+            )
+            BEGIN
+
+                ALTER TABLE Products
+
+                ADD CONSTRAINT FK_Product_Category
+
+                FOREIGN KEY(categoryId)
+
+                REFERENCES Categories(id);
+
+            END
+
+        `);
+
+        console.log("Products linked to Categories.");
+
+
+        // =====================================
+// REVIEWS TABLE
 // =====================================
 
         await pool.request().query(`
 
 IF NOT EXISTS (
-
-SELECT *
-
-FROM sys.foreign_keys
-
-WHERE name='FK_Product_Category'
-
+    SELECT *
+    FROM sysobjects
+    WHERE name = 'Reviews'
+    AND xtype = 'U'
 )
 
 BEGIN
 
-ALTER TABLE Products
+    CREATE TABLE Reviews (
 
-ADD CONSTRAINT FK_Product_Category
+        id INT IDENTITY(1,1) PRIMARY KEY,
 
-FOREIGN KEY(categoryId)
+        userId INT NOT NULL,
 
-REFERENCES Categories(id);
+        productId INT NOT NULL,
+
+        rating INT NOT NULL,
+
+        comment NVARCHAR(1000),
+
+        createdAt DATETIME DEFAULT GETDATE(),
+
+        FOREIGN KEY (userId)
+            REFERENCES Users(id),
+
+        FOREIGN KEY (productId)
+            REFERENCES Products(id),
+
+        CONSTRAINT CK_Reviews_Rating
+            CHECK (rating >= 1 AND rating <= 5)
+
+    );
 
 END
 
 `);
 
-        console.log("Products linked to Categories.");
+        console.log("Reviews table is ready.");
 
-    }
-    catch (error) {
+        // =====================================
+// COMPLAINTS TABLE
+// =====================================
 
-        console.error("Error creating tables:", error);
+        await pool.request().query(`
+
+IF NOT EXISTS (
+    SELECT *
+    FROM sysobjects
+    WHERE name='Complaints'
+    AND xtype='U'
+)
+
+CREATE TABLE Complaints(
+
+    id INT IDENTITY(1,1) PRIMARY KEY,
+
+    userId INT NOT NULL,
+
+    subject NVARCHAR(200) NOT NULL,
+
+    message NVARCHAR(MAX) NOT NULL,
+
+    status NVARCHAR(30) NOT NULL
+        DEFAULT 'Pending',
+
+    adminReply NVARCHAR(MAX) NULL,
+
+    createdAt DATETIME DEFAULT GETDATE(),
+
+    updatedAt DATETIME NULL,
+
+    FOREIGN KEY(userId)
+        REFERENCES Users(id)
+
+);
+
+`);
+
+        console.log("Complaints table is ready.");
+
+
+    } catch (error) {
+
+        console.error(
+            "Error creating tables:",
+            error
+        );
 
     }
 

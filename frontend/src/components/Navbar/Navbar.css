@@ -1,283 +1,396 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
 
 
+/* ==============================
+   NAVBAR
+============================== */
 
-body{
+.custom-navbar {
 
-    font-family:Poppins,sans-serif;
+    background: white;
 
-}
+    padding: 12px 0;
 
+    position: sticky;
 
+    top: 0;
 
+    z-index: 1000;
 
-.custom-navbar{
-
-    background:white;
-
-    padding:18px 0;
-
-}
-
-
-
-
-
-.logo{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    font-family:"Playfair Display",serif;
-
-    font-size:30px;
-
-    color:#b76e79;
-
-    font-weight:bold;
-
-    text-decoration:none;
+    border-bottom: 1px solid #f0dce1;
 
 }
 
 
+/* ==============================
+   LOGO
+============================== */
 
+.logo {
 
-.logo:hover{
+    display: flex;
 
-    color:#d98c9a;
+    align-items: center;
 
-}
+    gap: 10px;
 
+    font-family:
+            "Playfair Display",
+            serif;
 
+    font-size: 25px;
 
+    color: #b76e79;
 
+    font-weight: 700;
 
-.logo-img{
-
-    width:60px;
-
-    height:60px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:2px solid #d4af37;
-
-}
-
-
-
-
-
-.nav-link{
-
-    margin:0 12px;
-
-    color:#444;
-
-    font-weight:500;
-
-    transition:.3s;
+    text-decoration: none;
 
 }
 
 
+.logo:hover {
 
-.nav-link:hover{
-
-    color:#b76e79;
-
-}
-
-
-
-
-
-
-.icons{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
+    color: #b76e79;
 
 }
 
 
+.logo-img {
 
+    width: 52px;
 
+    height: 52px;
 
-.icons i{
+    border-radius: 50%;
 
-    font-size:20px;
+    object-fit: cover;
 
-    cursor:pointer;
-
-    color:#444;
-
-    transition:.3s;
-
-}
-
-
-
-
-
-.icons i:hover{
-
-    color:#b76e79;
-
-    transform:scale(1.15);
+    border: 2px solid #d4af37;
 
 }
 
 
+/* ==============================
+   MENU LINKS
+============================== */
 
+.nav-link {
 
+    margin: 0 8px;
 
-.cart-icon{
+    color: #444 !important;
 
-    position:relative;
+    font-family: Poppins, sans-serif;
 
-    text-decoration:none;
+    font-size: 14px;
 
-}
+    font-weight: 500;
 
-
-
-
-
-.cart-badge{
-
-
-    position:absolute;
-
-    top:-12px;
-
-    right:-12px;
-
-
-    background:#e91e63;
-
-
-    color:white;
-
-
-    width:22px;
-
-    height:22px;
-
-
-    border-radius:50%;
-
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-
-    font-size:12px;
-
-    font-weight:bold;
-
+    transition: 0.25s;
 
 }
 
 
+.nav-link:hover {
 
-
-
-
-
-.user-name{
-
-    color:#b76e79;
-
-    font-weight:600;
+    color: #b76e79 !important;
 
 }
 
 
+/* ==============================
+   RIGHT ICONS
+============================== */
+
+.icons {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
 
 
+.icons i {
+
+    font-size: 19px;
+
+    color: #444;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+
+}
+
+
+.icons i:hover {
+
+    color: #b76e79;
+
+}
+
+
+/* ==============================
+   CART
+============================== */
+
+.cart-icon {
+
+    position: relative;
+
+    text-decoration: none;
+
+}
+
+
+.cart-badge {
+
+    position: absolute;
+
+    top: -10px;
+
+    right: -10px;
+
+    width: 19px;
+
+    height: 19px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #e91e63;
+
+    color: white;
+
+    border-radius: 50%;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+}
+
+
+/* ==============================
+   USER
+============================== */
+
+.user-name {
+
+    color: #b76e79;
+
+    font-family: Poppins, sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+/* ==============================
+   BUTTONS
+============================== */
 
 .login-btn,
+.register-btn {
 
-.register-btn{
+    border: none;
 
+    padding: 8px 17px;
 
-    border:none;
+    border-radius: 25px;
 
+    font-family: Poppins, sans-serif;
 
-    padding:10px 22px;
+    font-size: 13px;
 
+    font-weight: 600;
 
-    border-radius:30px;
+    cursor: pointer;
 
-
-    font-weight:600;
-
-
-    cursor:pointer;
-
-
-}
-
-
-
-
-
-.login-btn{
-
-
-    background:#b76e79;
-
-    color:white;
-
+    transition: 0.25s;
 
 }
 
 
+.login-btn {
 
+    background: #b76e79;
 
-.login-btn:hover{
-
-
-    background:#d98c9a;
-
+    color: white;
 
 }
 
 
+.login-btn:hover {
 
-
-
-.register-btn{
-
-
-    background:#d4af37;
-
-    color:white;
-
+    background: #a85d69;
 
 }
 
 
+.register-btn {
+
+    background: #d4af37;
+
+    color: white;
+
+}
 
 
+.register-btn:hover {
 
-.register-btn:hover{
+    background: #b8941f;
+
+}
 
 
-    background:#b8941f;
+/* ==============================
+   MOBILE
+============================== */
 
+@media (max-width: 991px) {
+
+    .navbar-nav {
+
+        margin-top: 15px;
+
+        text-align: center;
+
+    }
+
+
+    .nav-link {
+
+        margin: 5px 0;
+
+    }
+
+
+    .icons {
+
+        margin-top: 15px;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .logo {
+
+        font-size: 21px;
+
+    }
+
+
+    .logo-img {
+
+        width: 45px;
+
+        height: 45px;
+
+    }
+
+}
+/* =========================
+   WISHLIST NAVBAR ❤️
+========================= */
+
+.wishlist-icon {
+
+    position: relative !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    width: 42px !important;
+
+    height: 42px !important;
+
+    margin-right: 12px !important;
+
+    text-decoration: none !important;
+
+    color: #c67a95 !important;
+
+    font-size: 21px !important;
+
+    cursor: pointer !important;
+
+}
+
+
+.wishlist-icon i {
+
+    display: block !important;
+
+    color: #c67a95 !important;
+
+    font-size: 21px !important;
+
+    visibility: visible !important;
+
+    opacity: 1 !important;
+
+}
+
+
+.wishlist-icon:hover i {
+
+    color: #b76e79 !important;
+
+    transform: scale(1.12);
+
+}
+
+
+/* =========================
+   WISHLIST NUMBER
+========================= */
+
+.wishlist-badge {
+
+    position: absolute !important;
+
+    top: -4px !important;
+
+    right: -3px !important;
+
+    min-width: 18px !important;
+
+    height: 18px !important;
+
+    padding: 0 5px !important;
+
+    border-radius: 50% !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    background: #c67a95 !important;
+
+    color: white !important;
+
+    font-size: 11px !important;
+
+    font-weight: bold !important;
+
+    line-height: 1 !important;
 
 }

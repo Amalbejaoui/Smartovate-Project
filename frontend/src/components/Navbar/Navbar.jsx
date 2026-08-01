@@ -2,7 +2,9 @@ import "./Navbar.css";
 import logo from "../../assets/logo.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
+
 import { CartContext } from "../../context/CartContext";
+import { WishlistContext } from "../../context/WishlistContext";
 
 
 function Navbar() {
@@ -11,18 +13,39 @@ function Navbar() {
     const navigate = useNavigate();
 
 
+    // ==============================
+    // CART
+    // ==============================
+
     const { cart } = useContext(CartContext);
 
 
+    // ==============================
+    // WISHLIST
+    // ==============================
+
+    const { wishlist } =
+        useContext(WishlistContext);
+
+
+
+    // ==============================
+    // USER
+    // ==============================
 
     const user = JSON.parse(
         localStorage.getItem("user")
     );
 
 
-    const isAdmin = user?.role === "admin";
+    const isAdmin =
+        user?.role === "admin";
 
 
+
+    // ==============================
+    // CART COUNT
+    // ==============================
 
     const cartCount = cart.reduce(
 
@@ -35,6 +58,9 @@ function Navbar() {
 
 
 
+    // ==============================
+    // LOGOUT
+    // ==============================
 
     const logout = () => {
 
@@ -46,9 +72,7 @@ function Navbar() {
 
         navigate("/login");
 
-
     };
-
 
 
 
@@ -61,6 +85,9 @@ function Navbar() {
             <div className="container">
 
 
+                {/* =========================
+                    LOGO
+                ========================= */}
 
                 <Link
                     className="navbar-brand logo"
@@ -76,7 +103,7 @@ function Navbar() {
 
 
                     <span>
-                        Shopping By Amal
+                        Shopp Ing By Amal
                     </span>
 
 
@@ -84,7 +111,9 @@ function Navbar() {
 
 
 
-
+                {/* =========================
+                    MOBILE MENU
+                ========================= */}
 
                 <button
 
@@ -100,12 +129,7 @@ function Navbar() {
 
                     <span className="navbar-toggler-icon"></span>
 
-
                 </button>
-
-
-
-
 
 
 
@@ -118,10 +142,14 @@ function Navbar() {
                 >
 
 
+                    {/* =========================
+                        MENU
+                    ========================= */}
 
                     <ul className="navbar-nav mx-auto">
 
 
+                        {/* HOME */}
 
                         <li className="nav-item">
 
@@ -138,28 +166,28 @@ function Navbar() {
 
 
 
+                        {/* SHOP */}
+
+                        {!isAdmin && (
+
+                            <li className="nav-item">
+
+                                <Link
+                                    className="nav-link"
+                                    to="/shop"
+                                >
+
+                                    Shop
+
+                                </Link>
+
+                            </li>
+
+                        )}
 
 
-                        {
-                            !isAdmin && (
 
-                                <li className="nav-item">
-
-                                    <Link
-                                        className="nav-link"
-                                        to="/shop"
-                                    >
-                                        Shop
-                                    </Link>
-
-                                </li>
-
-                            )
-                        }
-
-
-
-
+                        {/* CATEGORIES */}
 
                         <li className="nav-item">
 
@@ -176,7 +204,24 @@ function Navbar() {
 
 
 
+                        {/* COMPLAINTS */}
 
+                        <li className="nav-item">
+
+                            <Link
+                                className="nav-link"
+                                to="/complaints"
+                            >
+
+                                Complaints
+
+                            </Link>
+
+                        </li>
+
+
+
+                        {/* ABOUT */}
 
                         <li className="nav-item">
 
@@ -193,7 +238,7 @@ function Navbar() {
 
 
 
-
+                        {/* CONTACT */}
 
                         <li className="nav-item">
 
@@ -210,75 +255,84 @@ function Navbar() {
 
 
 
+                        {/* ADMIN */}
 
-                        {
+                        {isAdmin && (
 
-                            isAdmin && (
+                            <li className="nav-item">
 
-                                <li className="nav-item">
+                                <Link
+                                    className="nav-link"
+                                    to="/admin"
+                                >
 
-                                    <Link
-                                        className="nav-link"
-                                        to="/admin"
-                                    >
+                                    Admin 👑
 
-                                        Admin 👑
+                                </Link>
 
-                                    </Link>
+                            </li>
 
-
-                                </li>
-
-                            )
-
-                        }
-
-
+                        )}
 
 
                     </ul>
 
 
 
-
-
-
-
-
+                    {/* =========================
+                        RIGHT ICONS
+                    ========================= */}
 
                     <div className="icons">
 
 
+                        {/* =========================
+                            WISHLIST ❤️
+                        ========================= */}
+
+                        {!isAdmin && (
+
+                            <Link
+                                to="/wishlist"
+                                className="wishlist-icon"
+                            >
+
+                                <i className="bi bi-heart-fill"></i>
+
+                                {wishlist.length > 0 && (
+
+                                    <span className="wishlist-badge">
+
+                                        {wishlist.length}
+
+                                    </span>
+
+                                )}
+
+                            </Link>
+
+                        )}
 
 
 
+                        {/* =========================
+                            CART 🛒
+                        ========================= */}
 
-                        <i className="fas fa-heart"></i>
+                        {!isAdmin && (
 
+                            <Link
 
+                                to="/cart"
 
+                                className="cart-icon"
 
-
-
-
-                        <Link
-
-                            to="/cart"
-
-                            className="cart-icon"
-
-                        >
+                            >
 
 
+                                <i className="bi bi-bag-fill"></i>
 
-                            <i className="fas fa-shopping-cart"></i>
-
-
-
-
-                            {
-
-                                cartCount > 0 && (
+                                {cartCount > 0 && (
 
                                     <span className="cart-badge">
 
@@ -286,146 +340,100 @@ function Navbar() {
 
                                     </span>
 
-                                )
+                                )}
 
-                            }
 
+                            </Link>
 
+                        )}
 
 
-                        </Link>
 
+                        {/* =========================
+                            USER
+                        ========================= */}
 
+                        {user ? (
 
+                            <>
 
 
+                                <span className="user-name">
 
+                                    Hi {user.fullName}
 
+                                </span>
 
 
-                        {
 
+                                <button
 
-                            user ? (
+                                    className="login-btn"
 
+                                    onClick={logout}
 
-                                    <>
+                                >
 
+                                    Logout
 
-                                    <span className="user-name">
+                                </button>
 
-                                        Hi {user.fullName}
 
-                                    </span>
+                            </>
 
+                        ) : (
 
+                            <>
 
 
+                                <button
 
-                                        <button
+                                    className="login-btn"
 
-                                            className="login-btn"
+                                    onClick={() =>
+                                        navigate("/login")
+                                    }
 
-                                            onClick={logout}
+                                >
 
-                                        >
+                                    Login
 
-                                            Logout
+                                </button>
 
-                                        </button>
 
 
+                                <button
 
-                                    </>
+                                    className="register-btn"
 
+                                    onClick={() =>
+                                        navigate("/register")
+                                    }
 
+                                >
 
-                                )
+                                    Register
 
+                                </button>
 
 
-                                :
+                            </>
 
-
-
-                                (
-
-
-                                    <>
-
-
-
-                                        <button
-
-                                            className="login-btn"
-
-                                            onClick={() =>
-                                                navigate("/login")
-                                            }
-
-                                        >
-
-                                            Login
-
-                                        </button>
-
-
-
-
-
-
-
-                                        <button
-
-                                            className="register-btn"
-
-                                            onClick={() =>
-                                                navigate("/register")
-                                            }
-
-                                        >
-
-                                            Register
-
-                                        </button>
-
-
-
-                                    </>
-
-
-                                )
-
-
-                        }
-
-
-
+                        )}
 
 
                     </div>
 
 
-
-
-
                 </div>
-
-
-
 
 
             </div>
 
 
-
-
-
         </nav>
 
-
     );
-
 
 }
 

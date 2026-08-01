@@ -1,30 +1,25 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import api from "../../services/api";
 import "./Login.css";
 
 function Login() {
 
-    const navigate = useNavigate();
-
     const [form, setForm] = useState({
-
         email: "",
         password: ""
-
     });
+
 
     const handleChange = (e) => {
 
         setForm({
-
             ...form,
-
             [e.target.name]: e.target.value
-
         });
 
     };
+
 
     const handleSubmit = async (e) => {
 
@@ -32,25 +27,57 @@ function Login() {
 
         try {
 
-            const res = await api.post("/users/login", form);
+            const res = await api.post(
+                "/users/login",
+                form
+            );
 
-            localStorage.setItem("token", res.data.token);
 
-            localStorage.setItem("user", JSON.stringify(res.data.user));
+            // =====================================
+            // SAVE TOKEN
+            // =====================================
+
+            localStorage.setItem(
+                "token",
+                res.data.token
+            );
+
+
+            // =====================================
+            // SAVE LOGGED USER
+            // =====================================
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(res.data.user)
+            );
+
 
             alert("Login Successful ❤️");
 
-            navigate("/");
 
-        }
+            // =====================================
+            // RELOAD APP
+            // CartContext will load the
+            // cart of the new user
+            // =====================================
 
-        catch (err) {
+            window.location.href = "/";
 
-            alert(err.response?.data?.message || "Login Failed");
+
+        } catch (err) {
+
+            console.log("Login error:", err);
+
+            alert(
+                err.response?.data?.message ||
+                "Login Failed"
+            );
 
         }
 
     };
+
 
     return (
 
@@ -62,45 +89,48 @@ function Login() {
             >
 
                 <h2>
-
                     Shopping By Amal
-
                 </h2>
 
+
                 <p>
-
                     Welcome Back ❤️
-
                 </p>
+
 
                 <input
                     type="email"
                     name="email"
                     placeholder="Email"
+                    value={form.email}
                     onChange={handleChange}
+                    required
                 />
+
 
                 <input
                     type="password"
                     name="password"
                     placeholder="Password"
+                    value={form.password}
                     onChange={handleChange}
+                    required
                 />
 
-                <button>
 
+                <button type="submit">
                     Login
-
                 </button>
+
 
                 <span>
 
                     Don't have an account?
 
+                    {" "}
+
                     <Link to="/register">
-
                         Register
-
                     </Link>
 
                 </span>

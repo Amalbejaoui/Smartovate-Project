@@ -5,7 +5,7 @@ import Products from "./Products/Products";
 function Home() {
     return (
         <>
-            <Navbar />
+
             <Hero />
             <Categories />
             <Products />
