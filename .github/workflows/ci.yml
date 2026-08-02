@@ -9,7 +9,12 @@ on:
     branches:
       - main
 
+
 jobs:
+
+  # ==========================================
+  # BACKEND TESTS
+  # ==========================================
 
   backend-tests:
 
@@ -22,31 +27,75 @@ jobs:
         working-directory: backend
 
     env:
+
+      # Azure SQL
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_SERVER: ${{ secrets.DB_SERVER }}
       DB_DATABASE: ${{ secrets.DB_DATABASE }}
       DB_PORT: ${{ secrets.DB_PORT }}
+
+      # JWT
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+      # Server
       PORT: ${{ secrets.PORT }}
+
+      # CI Admin
+      CI_ADMIN_EMAIL: ${{ secrets.CI_ADMIN_EMAIL }}
+      CI_ADMIN_PASSWORD: ${{ secrets.CI_ADMIN_PASSWORD }}
+
+
     steps:
 
+      # ------------------------------------------
+      # CHECKOUT
+      # ------------------------------------------
+
       - name: Checkout repository
+
         uses: actions/checkout@v4
 
+
+      # ------------------------------------------
+      # NODE.JS
+      # ------------------------------------------
+
       - name: Setup Node.js
+
         uses: actions/setup-node@v4
+
         with:
+
           node-version: 22
+
           cache: npm
-          cache-dependency-path: backend/package-lock.json
+
+          cache-dependency-path:
+            backend/package-lock.json
+
+
+      # ------------------------------------------
+      # INSTALL DEPENDENCIES
+      # ------------------------------------------
 
       - name: Install backend dependencies
+
         run: npm ci
 
+
+      # ------------------------------------------
+      # RUN TESTS
+      # ------------------------------------------
+
       - name: Run backend tests
+
         run: npm test
 
+
+  # ==========================================
+  # FRONTEND BUILD
+  # ==========================================
 
   frontend-build:
 
@@ -58,20 +107,49 @@ jobs:
       run:
         working-directory: frontend
 
+
     steps:
 
+      # ------------------------------------------
+      # CHECKOUT
+      # ------------------------------------------
+
       - name: Checkout repository
+
         uses: actions/checkout@v4
 
+
+      # ------------------------------------------
+      # NODE.JS
+      # ------------------------------------------
+
       - name: Setup Node.js
+
         uses: actions/setup-node@v4
+
         with:
+
           node-version: 22
+
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
+
+          cache-dependency-path:
+            frontend/package-lock.json
+
+
+      # ------------------------------------------
+      # INSTALL DEPENDENCIES
+      # ------------------------------------------
 
       - name: Install frontend dependencies
+
         run: npm ci
 
+
+      # ------------------------------------------
+      # BUILD FRONTEND
+      # ------------------------------------------
+
       - name: Build frontend
+
         run: npm run build
