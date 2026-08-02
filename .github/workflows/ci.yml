@@ -11,17 +11,24 @@ on:
 
 jobs:
 
-  # ==========================
-  # BACKEND
-  # ==========================
-  backend:
+  backend-tests:
+
     name: Backend Tests
+
     runs-on: ubuntu-latest
 
     defaults:
       run:
         working-directory: backend
 
+    env:
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_SERVER: ${{ secrets.DB_SERVER }}
+      DB_DATABASE: ${{ secrets.DB_DATABASE }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      PORT: ${{ secrets.PORT }}
     steps:
 
       - name: Checkout repository
@@ -30,7 +37,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: backend/package-lock.json
 
@@ -41,11 +48,10 @@ jobs:
         run: npm test
 
 
-  # ==========================
-  # FRONTEND
-  # ==========================
-  frontend:
+  frontend-build:
+
     name: Frontend Build
+
     runs-on: ubuntu-latest
 
     defaults:
@@ -60,7 +66,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
