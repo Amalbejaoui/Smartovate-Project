@@ -1,396 +1,210 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
-
-
-/* ==============================
-   NAVBAR
-============================== */
-
 .custom-navbar {
-
-    background: white;
-
-    padding: 12px 0;
-
+    background: rgba(13, 15, 19, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 14px 0;
     position: sticky;
-
     top: 0;
-
     z-index: 1000;
-
-    border-bottom: 1px solid #f0dce1;
-
+    border-bottom: 1px solid var(--color-border);
+    transition: box-shadow var(--transition);
 }
-
-
-/* ==============================
-   LOGO
-============================== */
 
 .logo {
-
     display: flex;
-
     align-items: center;
-
-    gap: 10px;
-
-    font-family:
-            "Playfair Display",
-            serif;
-
+    gap: 12px;
+    font-family: var(--font-heading);
     font-size: 25px;
-
-    color: #b76e79;
-
+    color: var(--color-primary);
     font-weight: 700;
-
     text-decoration: none;
-
+    transition: color var(--transition-fast);
 }
-
 
 .logo:hover {
-
-    color: #b76e79;
-
+    color: var(--color-primary-light);
 }
-
 
 .logo-img {
-
     width: 52px;
-
     height: 52px;
-
     border-radius: 50%;
-
     object-fit: cover;
-
-    border: 2px solid #d4af37;
-
+    border: 2px solid var(--color-primary);
+    transition: transform var(--transition), box-shadow var(--transition);
 }
 
-
-/* ==============================
-   MENU LINKS
-============================== */
+.logo:hover .logo-img {
+    transform: rotate(-4deg) scale(1.04);
+    box-shadow: var(--shadow-glow);
+}
 
 .nav-link {
-
-    margin: 0 8px;
-
-    color: #444 !important;
-
-    font-family: Poppins, sans-serif;
-
+    position: relative;
+    margin: 0 10px;
+    color: var(--color-text-muted) !important;
+    font-family: var(--font-body);
     font-size: 14px;
-
     font-weight: 500;
-
-    transition: 0.25s;
-
+    transition: color var(--transition-fast);
 }
 
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width var(--transition);
+}
 
 .nav-link:hover {
-
-    color: #b76e79 !important;
-
+    color: var(--color-text) !important;
 }
 
-
-/* ==============================
-   RIGHT ICONS
-============================== */
+.nav-link:hover::after {
+    width: 100%;
+}
 
 .icons {
-
     display: flex;
-
     align-items: center;
-
-    gap: 15px;
-
+    gap: 16px;
 }
-
 
 .icons i {
-
     font-size: 19px;
-
-    color: #444;
-
+    color: var(--color-text-muted);
     cursor: pointer;
-
-    transition: 0.25s;
-
+    transition: color var(--transition-fast), transform var(--transition-fast);
 }
-
 
 .icons i:hover {
-
-    color: #b76e79;
-
+    color: var(--color-primary);
+    transform: translateY(-2px);
 }
-
-
-/* ==============================
-   CART
-============================== */
 
 .cart-icon {
-
     position: relative;
-
     text-decoration: none;
-
 }
-
 
 .cart-badge {
-
     position: absolute;
-
     top: -10px;
-
     right: -10px;
-
     width: 19px;
-
     height: 19px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    background: #e91e63;
-
-    color: white;
-
+    background: var(--color-primary);
+    color: #0d0f13;
     border-radius: 50%;
-
     font-size: 10px;
-
-    font-weight: 600;
-
+    font-weight: 700;
+    animation: fadeIn var(--transition);
 }
-
-
-/* ==============================
-   USER
-============================== */
 
 .user-name {
-
-    color: #b76e79;
-
-    font-family: Poppins, sans-serif;
-
+    color: var(--color-primary-light);
+    font-family: var(--font-body);
     font-size: 13px;
-
     font-weight: 600;
-
 }
-
-
-/* ==============================
-   BUTTONS
-============================== */
 
 .login-btn,
 .register-btn {
-
     border: none;
-
-    padding: 8px 17px;
-
-    border-radius: 25px;
-
-    font-family: Poppins, sans-serif;
-
+    padding: 9px 19px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
     font-size: 13px;
-
     font-weight: 600;
-
     cursor: pointer;
-
-    transition: 0.25s;
-
+    transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
-
 
 .login-btn {
-
-    background: #b76e79;
-
-    color: white;
-
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
 }
-
 
 .login-btn:hover {
-
-    background: #a85d69;
-
+    border-color: var(--color-primary);
+    color: var(--color-primary-light);
+    transform: translateY(-2px);
 }
-
 
 .register-btn {
-
-    background: #d4af37;
-
-    color: white;
-
+    background: var(--color-primary);
+    color: #0d0f13;
 }
-
 
 .register-btn:hover {
-
-    background: #b8941f;
-
+    background: var(--color-primary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
 }
-
-
-/* ==============================
-   MOBILE
-============================== */
 
 @media (max-width: 991px) {
-
-    .navbar-nav {
-
-        margin-top: 15px;
-
-        text-align: center;
-
-    }
-
-
-    .nav-link {
-
-        margin: 5px 0;
-
-    }
-
-
-    .icons {
-
-        margin-top: 15px;
-
-        justify-content: center;
-
-        flex-wrap: wrap;
-
-    }
-
-
-    .logo {
-
-        font-size: 21px;
-
-    }
-
-
-    .logo-img {
-
-        width: 45px;
-
-        height: 45px;
-
-    }
-
+    .navbar-nav { margin-top: 15px; text-align: center; }
+    .nav-link { margin: 6px 0; }
+    .nav-link::after { display: none; }
+    .icons { margin-top: 15px; justify-content: center; flex-wrap: wrap; }
+    .logo { font-size: 21px; }
+    .logo-img { width: 45px; height: 45px; }
 }
-/* =========================
-   WISHLIST NAVBAR ❤️
-========================= */
 
 .wishlist-icon {
-
     position: relative !important;
-
     display: inline-flex !important;
-
     align-items: center !important;
-
     justify-content: center !important;
-
     width: 42px !important;
-
     height: 42px !important;
-
     margin-right: 12px !important;
-
     text-decoration: none !important;
-
-    color: #c67a95 !important;
-
+    color: var(--color-text-muted) !important;
     font-size: 21px !important;
-
     cursor: pointer !important;
-
+    transition: transform var(--transition-fast), color var(--transition-fast) !important;
 }
-
 
 .wishlist-icon i {
-
     display: block !important;
-
-    color: #c67a95 !important;
-
+    color: inherit !important;
     font-size: 21px !important;
-
     visibility: visible !important;
-
     opacity: 1 !important;
-
 }
 
+.wishlist-icon:hover {
+    color: var(--color-primary) !important;
+}
 
 .wishlist-icon:hover i {
-
-    color: #b76e79 !important;
-
     transform: scale(1.12);
-
 }
 
-
-/* =========================
-   WISHLIST NUMBER
-========================= */
-
 .wishlist-badge {
-
     position: absolute !important;
-
     top: -4px !important;
-
     right: -3px !important;
-
     min-width: 18px !important;
-
     height: 18px !important;
-
     padding: 0 5px !important;
-
     border-radius: 50% !important;
-
     display: flex !important;
-
     align-items: center !important;
-
     justify-content: center !important;
-
-    background: #c67a95 !important;
-
-    color: white !important;
-
+    background: var(--color-primary) !important;
+    color: #0d0f13 !important;
     font-size: 11px !important;
-
     font-weight: bold !important;
-
     line-height: 1 !important;
-
+    animation: fadeIn var(--transition);
 }

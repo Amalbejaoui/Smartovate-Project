@@ -1,359 +1,330 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
+/* =========================================================
+   SHOPPING BY AMAL – CATEGORIES PAGE
+   Premium Feminine Luxury Redesign
+   ========================================================= */
 
-/* =========================================
-   PAGE
-========================================= */
+:root {
+    --blush: #f4d6e0;
+    --dusty-rose: #d4a5b8;
+    --rose: #c67a95;
+    --deep-rose: #a85c7a;
+    --burgundy: #6b3a4f;
+    --plum: #4a2c3a;
+    --nude: #f5e6e0;
+    --cream: #fdf8f6;
+    --ivory: #fffaf8;
+    --soft-lavender: #e8e0ec;
+    --rose-gold: #c9a27c;
+    --text-dark: #2c1e24;
+    --text-muted: #7a6570;
+    --text-light: #9a8490;
+    --white: #ffffff;
+    --shadow-soft: 0 8px 32px rgba(107, 58, 79, 0.08);
+    --shadow-medium: 0 12px 40px rgba(107, 58, 79, 0.12);
+    --shadow-hover: 0 22px 50px rgba(107, 58, 79, 0.18);
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ---------------------------------------------------------
+   PAGE BASE
+--------------------------------------------------------- */
 
 .categories-page {
-
     min-height: 100vh;
-
     background:
-            radial-gradient(
-                    circle at top right,
-                    rgba(232, 180, 199, 0.25),
-                    transparent 35%
-            ),
-            #fff9fb;
-
-    padding: 70px 6%;
-
-    font-family: 'Inter', sans-serif;
-
-    color: #2f2f2f;
-
+            radial-gradient(ellipse at top right, rgba(244, 214, 224, 0.35) 0%, transparent 40%),
+            radial-gradient(ellipse at bottom left, rgba(232, 224, 236, 0.25) 0%, transparent 40%),
+            linear-gradient(165deg, var(--cream) 0%, var(--ivory) 45%, #faf5f7 100%);
+    padding: 70px 6% 100px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text-dark);
+    position: relative;
 }
 
+.categories-page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--dusty-rose), transparent);
+    opacity: 0.4;
+}
 
-/* =========================================
+/* ---------------------------------------------------------
    HERO
-========================================= */
+--------------------------------------------------------- */
 
 .categories-hero {
-
     text-align: center;
-
-    max-width: 750px;
-
-    margin: 0 auto 55px;
-
+    max-width: 720px;
+    margin: 0 auto 60px;
 }
-
 
 .categories-hero span {
-
-    color: #c67a95;
-
-    font-size: 0.85rem;
-
+    color: var(--deep-rose);
+    font-size: 0.8rem;
     font-weight: 600;
-
-    letter-spacing: 3px;
-
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
 }
-
 
 .categories-hero h1 {
-
-    font-family:
-            'Playfair Display',
-            Georgia,
-            serif;
-
-    font-size: 3rem;
-
-    margin: 15px 0;
-
-    color: #2f2f2f;
-
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(2.2rem, 5vw, 3rem);
+    margin: 14px 0 16px;
+    color: var(--burgundy);
+    letter-spacing: 0.02em;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 16px;
 }
 
+.categories-hero h1::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 55px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--rose-gold), transparent);
+    border-radius: 2px;
+}
 
 .categories-hero p {
-
-    color: #777;
-
+    color: var(--text-muted);
     font-size: 1rem;
-
-    line-height: 1.8;
-
+    line-height: 1.75;
+    margin: 0;
+    letter-spacing: 0.01em;
 }
 
-
-/* =========================================
-   GRID
-========================================= */
+/* ---------------------------------------------------------
+   SECTION / GRID
+--------------------------------------------------------- */
 
 .categories-section {
-
     max-width: 1200px;
-
-    margin: auto;
-
+    margin: 0 auto;
 }
-
 
 .categories-grid {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 25px;
-
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
 }
 
-
-/* =========================================
+/* ---------------------------------------------------------
    CATEGORY CARD
-========================================= */
+--------------------------------------------------------- */
 
 .category-card {
-
-    height: 390px;
-
+    height: 400px;
     position: relative;
-
     overflow: hidden;
-
-    border-radius: 25px;
-
+    border-radius: var(--radius-lg);
     cursor: pointer;
-
-    background: white;
-
-    box-shadow:
-            0 10px 30px
-            rgba(198, 122, 149, 0.12);
-
-    transition:
-            transform 0.4s ease,
-            box-shadow 0.4s ease;
-
+    background: var(--white);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(212, 165, 184, 0.15);
+    transition: var(--transition);
 }
-
 
 .category-card:hover {
-
-    transform: translateY(-8px);
-
-    box-shadow:
-            0 20px 45px
-            rgba(198, 122, 149, 0.25);
-
+    transform: translateY(-9px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(212, 165, 184, 0.3);
 }
 
-
-/* =========================================
+/* ---------------------------------------------------------
    IMAGE
-========================================= */
+--------------------------------------------------------- */
 
 .category-card img {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: cover;
-
     display: block;
-
-    transition:
-            transform 0.6s ease;
-
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
 
 .category-card:hover img {
-
     transform: scale(1.08);
-
 }
 
-
-/* =========================================
+/* ---------------------------------------------------------
    OVERLAY
-========================================= */
+--------------------------------------------------------- */
 
 .category-overlay {
-
     position: absolute;
-
     inset: 0;
-
     display: flex;
-
-    align-items: flex-end;
-
-    padding: 30px;
-
-    background:
-            linear-gradient(
-                    to top,
-                    rgba(25, 20, 23, 0.75),
-                    rgba(25, 20, 23, 0.10) 65%,
-                    transparent
-            );
-
-    color: white;
-
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 32px 30px;
+    background: linear-gradient(
+            to top,
+            rgba(44, 30, 36, 0.82) 0%,
+            rgba(44, 30, 36, 0.35) 45%,
+            rgba(44, 30, 36, 0.05) 75%,
+            transparent 100%
+    );
+    color: var(--white);
+    transition: background 0.4s ease;
 }
 
+.category-card:hover .category-overlay {
+    background: linear-gradient(
+            to top,
+            rgba(44, 30, 36, 0.88) 0%,
+            rgba(44, 30, 36, 0.45) 50%,
+            rgba(44, 30, 36, 0.1) 80%,
+            transparent 100%
+    );
+}
 
-/* =========================================
+/* ---------------------------------------------------------
    COLLECTION LABEL
-========================================= */
+--------------------------------------------------------- */
 
 .category-overlay span {
-
     font-size: 0.7rem;
-
-    letter-spacing: 2px;
-
+    letter-spacing: 0.18em;
     font-weight: 600;
-
-    opacity: 0.85;
-
+    text-transform: uppercase;
+    opacity: 0.9;
+    color: var(--rose-gold);
 }
 
-
-/* =========================================
+/* ---------------------------------------------------------
    TITLE
-========================================= */
+--------------------------------------------------------- */
 
 .category-overlay h2 {
-
-    font-family:
-            'Playfair Display',
-            Georgia,
-            serif;
-
-    font-size: 2rem;
-
-    margin: 7px 0 15px;
-
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    margin: 8px 0 16px;
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
 }
 
-
-/* =========================================
+/* ---------------------------------------------------------
    BUTTON
-========================================= */
+--------------------------------------------------------- */
 
 .category-overlay button {
-
-    background: rgba(255,255,255,0.15);
-
-    backdrop-filter: blur(8px);
-
-    border: 1px solid
-    rgba(255,255,255,0.5);
-
-    color: white;
-
-    padding: 10px 17px;
-
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    color: var(--white);
+    padding: 11px 20px;
     border-radius: 50px;
-
     cursor: pointer;
-
     font-size: 0.82rem;
-
-    font-weight: 500;
-
-    transition:
-            all 0.3s ease;
-
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: var(--transition);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
-
 
 .category-overlay button:hover {
-
-    background: white;
-
-    color: #c67a95;
-
-    transform: translateX(4px);
-
+    background: var(--white);
+    color: var(--deep-rose);
+    border-color: transparent;
+    transform: translateX(5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
-
-/* =========================================
+/* ---------------------------------------------------------
    DIFFERENT CARD SIZES
-========================================= */
+--------------------------------------------------------- */
 
 .category-card:nth-child(4) {
-
     grid-column: span 1;
-
 }
-
 
 .category-card:nth-child(5) {
-
     grid-column: span 2;
-
 }
 
-
-/* =========================================
+/* ---------------------------------------------------------
    RESPONSIVE
-========================================= */
+--------------------------------------------------------- */
 
-@media (max-width: 900px) {
-
+@media (max-width: 960px) {
     .categories-grid {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
     }
-
-
-    .category-card:nth-child(5) {
-
-        grid-column: span 2;
-
-    }
-
-}
-
-
-@media (max-width: 600px) {
-
-    .categories-page {
-
-        padding: 50px 5%;
-
-    }
-
-
-    .categories-hero h1 {
-
-        font-size: 2.2rem;
-
-    }
-
-
-    .categories-grid {
-
-        grid-template-columns: 1fr;
-
-    }
-
 
     .category-card {
-
-        height: 350px;
-
+        height: 360px;
     }
-
 
     .category-card:nth-child(5) {
+        grid-column: span 2;
+    }
+}
 
-        grid-column: span 1;
-
+@media (max-width: 600px) {
+    .categories-page {
+        padding: 48px 5% 80px;
     }
 
+    .categories-hero {
+        margin-bottom: 40px;
+    }
+
+    .categories-hero h1 {
+        font-size: 2.15rem;
+    }
+
+    .categories-hero p {
+        font-size: 0.95rem;
+    }
+
+    .categories-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .category-card {
+        height: 340px;
+        border-radius: 20px;
+    }
+
+    .category-card:nth-child(5) {
+        grid-column: span 1;
+    }
+
+    .category-overlay {
+        padding: 26px 22px;
+    }
+
+    .category-overlay h2 {
+        font-size: 1.65rem;
+        margin: 6px 0 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .category-card {
+        height: 300px;
+    }
+
+    .categories-hero h1 {
+        font-size: 1.9rem;
+    }
 }

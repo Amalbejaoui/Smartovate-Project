@@ -1,494 +1,553 @@
-.client-complaints-page {
-
-    min-height: 100vh;
-
-    padding: 45px;
-
-    background: #fff8fb;
-
+:root {
+    --blush: #f4d6e0;
+    --dusty-rose: #d4a5b8;
+    --rose: #c67a95;
+    --deep-rose: #a85c7a;
+    --burgundy: #6b3a4f;
+    --plum: #4a2c3a;
+    --nude: #f5e6e0;
+    --cream: #fdf8f6;
+    --ivory: #fffaf8;
+    --soft-lavender: #e8e0ec;
+    --rose-gold: #c9a27c;
+    --text-dark: #2c1e24;
+    --text-muted: #7a6570;
+    --text-light: #9a8490;
+    --white: #ffffff;
+    --shadow-soft: 0 8px 32px rgba(107, 58, 79, 0.08);
+    --shadow-medium: 0 12px 40px rgba(107, 58, 79, 0.12);
+    --shadow-hover: 0 18px 48px rgba(107, 58, 79, 0.16);
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 12px;
+    --transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+/* ---------------------------------------------------------
+   PAGE BASE
+--------------------------------------------------------- */
 
-/* =========================
+.client-complaints-page {
+    min-height: 100vh;
+    padding: 50px 40px 80px;
+    background:
+            radial-gradient(ellipse at top left, rgba(244, 214, 224, 0.4) 0%, transparent 50%),
+            radial-gradient(ellipse at bottom right, rgba(232, 224, 236, 0.3) 0%, transparent 50%),
+            linear-gradient(165deg, var(--cream) 0%, var(--ivory) 45%, #faf5f7 100%);
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    color: var(--text-dark);
+    position: relative;
+}
+
+.client-complaints-page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--dusty-rose), transparent);
+    opacity: 0.4;
+}
+
+/* ---------------------------------------------------------
    HEADER
-========================= */
+--------------------------------------------------------- */
 
 .complaints-header {
-
     max-width: 1000px;
-
-    margin: 0 auto 35px;
-
+    margin: 0 auto 40px;
 }
 
 .complaints-header h1 {
-
     margin: 0;
+    font-family: "Playfair Display", "Georgia", serif;
+    font-weight: 500;
+    font-size: clamp(28px, 4vw, 36px);
+    color: var(--burgundy);
+    letter-spacing: 0.02em;
+    position: relative;
+    padding-bottom: 14px;
+}
 
-    font-size: 34px;
-
-    color: #333;
-
+.complaints-header h1::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--rose-gold), transparent);
+    border-radius: 2px;
 }
 
 .complaints-header p {
-
-    margin-top: 8px;
-
-    color: #888;
-
+    margin-top: 12px;
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.55;
+    letter-spacing: 0.01em;
 }
 
-
-
-/* =========================
+/* ---------------------------------------------------------
    FORM CARD
-========================= */
+--------------------------------------------------------- */
 
 .complaint-form-card {
-
     max-width: 1000px;
+    margin: 0 auto 48px;
+    padding: 36px 40px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(212, 165, 184, 0.22);
+    box-shadow: var(--shadow-medium);
+    position: relative;
+    overflow: hidden;
+}
 
-    margin: 0 auto 45px;
-
-    padding: 30px;
-
-    background: white;
-
-    border-radius: 20px;
-
-    border: 1px solid #f1e3e7;
-
-    box-shadow:
-            0 8px 25px rgba(0,0,0,0.06);
-
+.complaint-form-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--dusty-rose), var(--rose-gold), var(--dusty-rose));
 }
 
 .complaint-form-card h2 {
-
-    margin: 0;
-
-    color: #444;
-
+    margin: 0 0 6px;
+    color: var(--text-dark);
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: 0.01em;
 }
 
 .complaint-form-card > p {
-
-    color: #999;
-
-    margin-bottom: 25px;
-
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    font-size: 14.5px;
+    line-height: 1.55;
 }
 
-
-
-/* =========================
+/* ---------------------------------------------------------
    FORM
-========================= */
+--------------------------------------------------------- */
 
 .form-group {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 8px;
-
-    margin-bottom: 20px;
-
+    margin-bottom: 22px;
 }
 
 .form-group label {
-
     font-weight: 600;
-
-    color: #555;
-
+    color: var(--text-dark);
+    font-size: 14px;
+    letter-spacing: 0.02em;
 }
 
 .form-group input,
 .form-group textarea {
-
     width: 100%;
-
     box-sizing: border-box;
-
-    padding: 14px 16px;
-
-    border: 1px solid #ddd;
-
-    border-radius: 12px;
-
+    padding: 14px 18px;
+    border: 1px solid rgba(212, 165, 184, 0.35);
+    border-radius: var(--radius-sm);
     outline: none;
-
     font-family: inherit;
-
-    font-size: 14px;
-
-    transition: 0.2s;
-
+    font-size: 14.5px;
+    color: var(--text-dark);
+    background: rgba(255, 255, 255, 0.9);
+    transition: var(--transition);
 }
 
 .form-group textarea {
-
     resize: vertical;
-
+    min-height: 120px;
+    line-height: 1.6;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
+    border-color: var(--rose);
+    box-shadow: 0 0 0 3px rgba(198, 122, 149, 0.15);
+    background: var(--white);
+}
 
-    border-color: #b76e79;
-
-    box-shadow:
-            0 0 0 3px rgba(183,110,121,0.08);
-
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-light);
 }
 
 .complaint-form-card button {
-
     border: none;
-
-    background: #b76e79;
-
-    color: white;
-
-    padding: 13px 25px;
-
-    border-radius: 12px;
-
+    background: linear-gradient(135deg, var(--dusty-rose) 0%, var(--rose) 50%, var(--deep-rose) 100%);
+    color: var(--white);
+    padding: 14px 32px;
+    border-radius: 50px;
     font-size: 15px;
-
     font-weight: 600;
-
+    letter-spacing: 0.04em;
     cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 8px 22px rgba(198, 122, 149, 0.35);
+    position: relative;
+    overflow: hidden;
+}
 
-    transition: 0.2s;
-
+.complaint-form-card button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .complaint-form-card button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(198, 122, 149, 0.45);
+}
 
+.complaint-form-card button:hover::after {
+    opacity: 1;
+}
+
+.complaint-form-card button:active {
     transform: translateY(-1px);
-
-    opacity: 0.9;
-
 }
 
 .complaint-form-card button:disabled {
-
-    opacity: 0.6;
-
+    opacity: 0.55;
     cursor: not-allowed;
-
+    transform: none;
+    box-shadow: 0 4px 12px rgba(198, 122, 149, 0.2);
 }
 
-
-
-/* =========================
+/* ---------------------------------------------------------
    LIST SECTION
-========================= */
+--------------------------------------------------------- */
 
 .complaints-list-section {
-
     max-width: 1000px;
-
-    margin: auto;
-
+    margin: 0 auto;
 }
 
 .complaints-list-section > h2 {
-
-    color: #444;
-
-    margin-bottom: 20px;
-
+    color: var(--text-dark);
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 24px;
+    letter-spacing: 0.01em;
 }
 
-
-
-/* =========================
+/* ---------------------------------------------------------
    COMPLAINT CARD
-========================= */
+--------------------------------------------------------- */
 
 .complaints-list {
-
     display: flex;
-
     flex-direction: column;
-
-    gap: 20px;
-
+    gap: 22px;
 }
 
 .complaint-card {
-
-    background: white;
-
-    padding: 25px;
-
-    border-radius: 18px;
-
-    border: 1px solid #f1e3e7;
-
-    box-shadow:
-            0 7px 20px rgba(0,0,0,0.05);
-
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 28px 30px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(212, 165, 184, 0.2);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
 }
 
+.complaint-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--dusty-rose), var(--rose-gold));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
 
+.complaint-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(212, 165, 184, 0.35);
+}
 
-/* =========================
+.complaint-card:hover::before {
+    opacity: 1;
+}
+
+/* ---------------------------------------------------------
    TOP
-========================= */
+--------------------------------------------------------- */
 
 .complaint-top {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: flex-start;
-
     gap: 20px;
-
     padding-bottom: 18px;
-
-    border-bottom: 1px solid #eee;
-
+    border-bottom: 1px solid rgba(212, 165, 184, 0.2);
 }
 
 .complaint-top span:first-child {
-
-    color: #aaa;
-
-    font-size: 12px;
-
+    color: var(--text-light);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
 }
 
 .complaint-top h3 {
-
-    margin: 5px 0 0;
-
-    color: #444;
-
+    margin: 6px 0 0;
+    color: var(--text-dark);
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: 0.01em;
 }
 
-
-
-/* =========================
+/* ---------------------------------------------------------
    STATUS
-========================= */
+--------------------------------------------------------- */
 
 .complaint-status {
-
-    padding: 7px 14px;
-
-    border-radius: 20px;
-
+    padding: 7px 15px;
+    border-radius: 50px;
     font-size: 12px;
-
     font-weight: 600;
-
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     white-space: nowrap;
-
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .status-pending {
-
-    background: #fff3cd;
-
-    color: #856404;
-
+    background: linear-gradient(145deg, #fff6e0, #f5e6c0);
+    color: #9a7200;
+    border: 1px solid rgba(168, 130, 0, 0.15);
 }
 
 .status-progress {
-
-    background: #e8f1ff;
-
-    color: #2764b8;
-
+    background: linear-gradient(145deg, #eef2fc, #dce4f5);
+    color: #4a6a9e;
+    border: 1px solid rgba(85, 114, 168, 0.15);
 }
 
 .status-resolved {
-
-    background: #e7f7ed;
-
-    color: #27834a;
-
+    background: linear-gradient(145deg, #e6f7ed, #d0eedb);
+    color: #2f7a45;
+    border: 1px solid rgba(60, 138, 82, 0.15);
 }
 
 .status-rejected {
-
-    background: #fde8e8;
-
-    color: #b42318;
-
+    background: linear-gradient(145deg, #fce8ec, #f5d0d8);
+    color: #9a3550;
+    border: 1px solid rgba(163, 63, 88, 0.15);
 }
 
-
-
-/* =========================
+/* ---------------------------------------------------------
    MESSAGE
-========================= */
+--------------------------------------------------------- */
 
 .complaint-message {
-
     padding: 20px 0;
-
 }
 
 .complaint-message span {
-
-    color: #999;
-
-    font-size: 13px;
-
+    color: var(--text-light);
+    font-size: 12.5px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
 }
 
 .complaint-message p {
-
-    color: #555;
-
-    line-height: 1.6;
-
-    margin-bottom: 0;
-
+    color: var(--text-dark);
+    line-height: 1.65;
+    margin: 0;
+    font-size: 14.5px;
 }
 
-
-
-/* =========================
+/* ---------------------------------------------------------
    ADMIN REPLY
-========================= */
+--------------------------------------------------------- */
 
 .admin-reply {
-
-    background: #fff5f8;
-
-    border-left: 4px solid #b76e79;
-
-    padding: 15px 18px;
-
-    border-radius: 10px;
-
+    background: linear-gradient(145deg, #f9f3f5, #f3e8ec);
+    border-left: 3px solid var(--rose);
+    padding: 16px 20px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     margin-bottom: 18px;
-
+    position: relative;
 }
 
 .reply-title {
-
     font-weight: 600;
-
-    color: #b76e79;
-
-    margin-bottom: 7px;
-
+    color: var(--deep-rose);
+    margin-bottom: 8px;
+    font-size: 13.5px;
+    letter-spacing: 0.02em;
 }
 
 .admin-reply p {
-
-    color: #555;
-
+    color: var(--text-dark);
     line-height: 1.6;
-
     margin: 0;
-
+    font-size: 14.5px;
 }
 
-
-
-/* =========================
+/* ---------------------------------------------------------
    DATE
-========================= */
+--------------------------------------------------------- */
 
 .complaint-date {
-
-    color: #aaa;
-
-    font-size: 12px;
-
+    color: var(--text-light);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
 }
 
-
-
-/* =========================
-   EMPTY
-========================= */
+/* ---------------------------------------------------------
+   EMPTY STATE
+--------------------------------------------------------- */
 
 .no-complaints {
-
-    background: white;
-
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     text-align: center;
+    padding: 56px 48px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-medium);
+    border: 1px solid rgba(212, 165, 184, 0.22);
+    position: relative;
+    overflow: hidden;
+}
 
-    padding: 50px;
-
-    border-radius: 18px;
-
-    box-shadow:
-            0 7px 20px rgba(0,0,0,0.05);
-
+.no-complaints::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--dusty-rose), var(--rose-gold), var(--dusty-rose));
 }
 
 .no-complaints div {
-
-    font-size: 45px;
-
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.85;
 }
 
 .no-complaints h3 {
-
-    color: #444;
-
+    color: var(--text-dark);
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0 0 8px;
 }
 
 .no-complaints p {
-
-    color: #999;
-
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0;
 }
 
-
-
-/* =========================
+/* ---------------------------------------------------------
    LOADING
-========================= */
+--------------------------------------------------------- */
 
 .complaints-loading {
-
     text-align: center;
-
-    padding: 40px;
-
-    color: #b76e79;
-
+    padding: 48px;
+    color: var(--deep-rose);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
 }
 
-
-
-/* =========================
+/* ---------------------------------------------------------
    RESPONSIVE
-========================= */
+--------------------------------------------------------- */
 
-@media (max-width: 700px) {
-
+@media (max-width: 768px) {
     .client-complaints-page {
+        padding: 32px 18px 60px;
+    }
 
-        padding: 25px 15px;
+    .complaints-header h1 {
+        font-size: 28px;
+    }
 
+    .complaint-form-card {
+        padding: 28px 22px;
+        border-radius: 20px;
+        margin-bottom: 36px;
+    }
+
+    .complaint-form-card h2 {
+        font-size: 20px;
+    }
+
+    .complaint-card {
+        padding: 22px 20px;
+        border-radius: 18px;
     }
 
     .complaint-top {
-
         flex-direction: column;
-
+        gap: 12px;
     }
 
     .complaint-status {
-
         align-self: flex-start;
-
     }
 
+    .complaint-top h3 {
+        font-size: 17px;
+    }
+
+    .no-complaints {
+        padding: 40px 28px;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .client-complaints-page {
+        padding: 24px 14px 50px;
+    }
+
+    .complaint-form-card {
+        padding: 24px 18px;
+    }
+
+    .complaint-form-card button {
+        width: 100%;
+        padding: 14px 24px;
+    }
+
+    .complaint-card {
+        padding: 18px 16px;
+    }
+
+    .admin-reply {
+        padding: 14px 16px;
+    }
 }
