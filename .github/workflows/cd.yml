@@ -24,17 +24,33 @@ jobs:
 
     steps:
 
+      # ------------------------------------------
+      # CHECKOUT
+      # ------------------------------------------
+
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      # ------------------------------------------
+      # NODE.JS
+      # ------------------------------------------
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
+      # ------------------------------------------
+      # INSTALL DEPENDENCIES
+      # ------------------------------------------
+
       - name: Install backend dependencies
         working-directory: backend
         run: npm ci
+
+      # ------------------------------------------
+      # CREATE DEPLOYMENT PACKAGE
+      # ------------------------------------------
 
       - name: Create deployment package
         run: |
@@ -44,6 +60,10 @@ jobs:
             -x ".env" \
             -x "coverage/*" \
             -x "tests/*"
+
+      # ------------------------------------------
+      # DEPLOY TO STAGING
+      # ------------------------------------------
 
       - name: Deploy to Staging
         uses: azure/webapps-deploy@v3
@@ -71,13 +91,25 @@ jobs:
 
     steps:
 
+      # ------------------------------------------
+      # CHECKOUT
+      # ------------------------------------------
+
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      # ------------------------------------------
+      # AZURE LOGIN
+      # ------------------------------------------
 
       - name: Azure Login
         uses: azure/login@v2
         with:
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+
+      # ------------------------------------------
+      # SWAP STAGING → PRODUCTION
+      # ------------------------------------------
 
       - name: Swap Staging to Production
         run: |
