@@ -74,9 +74,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Azure CLI
-        uses: azure/cli@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          azcliversion: latest
-          inlineScript: |
-            echo "Azure CLI ready"
+          node-version: 22
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Create deployment package
+        run: |
+          cd backend
+          zip -r ../backend.zip . \
+            -x "node_modules/*" \
+            -x ".env" \
+            -x "coverage/*" \
+            -x "tests/*"
+
+      - name: Deploy to Production
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: shoppingbyamal-backen
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: backend.zip
