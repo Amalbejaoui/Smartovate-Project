@@ -54,12 +54,12 @@ jobs:
 
 
   # ==========================================
-  # PRODUCTION
+  # DEPLOY TO PRODUCTION
   # ==========================================
 
   production:
 
-    name: Deploy to Production
+    name: Deploy Backend to Production
 
     needs: deploy-staging
 
@@ -86,7 +86,6 @@ jobs:
         run: |
           cd backend
           zip -r ../backend.zip . \
-            -x "node_modules/*" \
             -x ".env" \
             -x "coverage/*" \
             -x "tests/*"
