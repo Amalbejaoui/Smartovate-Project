@@ -1,4 +1,4 @@
-const { poolPromise } = require("../config/db");
+const { getPool } = require("../config/db");
 
 
 // ==============================
@@ -6,7 +6,7 @@ const { poolPromise } = require("../config/db");
 // ==============================
 async function getAllProducts() {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -25,7 +25,7 @@ async function getAllProducts() {
 // ==============================
 async function getProductById(id) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -51,7 +51,7 @@ async function getProductById(id) {
 // ==============================
 async function createProduct(product) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -92,7 +92,7 @@ async function createProduct(product) {
 // ==============================
 async function updateProduct(id, product) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -128,7 +128,7 @@ async function updateProduct(id, product) {
 // ==============================
 async function deleteProduct(id) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     try {
 

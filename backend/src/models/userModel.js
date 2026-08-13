@@ -1,4 +1,4 @@
-const { poolPromise } = require("../config/db");
+const { getPool } = require("../config/db");
 
 
 // ==========================
@@ -6,7 +6,7 @@ const { poolPromise } = require("../config/db");
 // ==========================
 async function findUserByEmail(email) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -27,7 +27,7 @@ async function findUserByEmail(email) {
 // ==========================
 async function createUser(user) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()

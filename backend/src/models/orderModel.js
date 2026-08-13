@@ -1,4 +1,4 @@
-const { poolPromise } = require("../config/db");
+const { getPool } = require("../config/db");
 
 
 // ===================================
@@ -6,7 +6,7 @@ const { poolPromise } = require("../config/db");
 // ===================================
 async function createOrder(userId) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     // ===================================
     // 1. GET USER CART
@@ -192,7 +192,7 @@ async function createOrder(userId) {
 
 async function getMyOrders(userId) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -247,7 +247,7 @@ async function getMyOrders(userId) {
 
 async function getAllOrders() {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -306,7 +306,7 @@ async function getAllOrders() {
 
 async function updateStatus(id, status) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()

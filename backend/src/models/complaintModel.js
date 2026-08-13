@@ -1,4 +1,4 @@
-const { poolPromise } = require("../config/db");
+const { getPool } = require("../config/db");
 
 
 // =====================================
@@ -7,7 +7,7 @@ const { poolPromise } = require("../config/db");
 
 async function createComplaint(userId, subject, message) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -43,7 +43,7 @@ async function createComplaint(userId, subject, message) {
 
 async function getMyComplaints(userId) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -85,7 +85,7 @@ async function getMyComplaints(userId) {
 
 async function getAllComplaints() {
 
-    const pool = await poolPromise;
+    const pool = await getpool;
 
     const result = await pool
         .request()
@@ -131,7 +131,7 @@ async function getAllComplaints() {
 
 async function updateComplaint(id, status, adminReply) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -160,7 +160,7 @@ async function updateComplaint(id, status, adminReply) {
 
 async function deleteComplaint(id) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()

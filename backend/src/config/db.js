@@ -6,7 +6,7 @@ const config = {
     password: process.env.DB_PASSWORD,
     server: process.env.DB_SERVER,
     database: process.env.DB_DATABASE,
-    port: parseInt(process.env.DB_PORT),
+    port: parseInt(process.env.DB_PORT, 10),
 
     options: {
         encrypt: true,
@@ -18,17 +18,45 @@ const config = {
     requestTimeout: 60000
 };
 
-const poolPromise = sql.connect(config)
-    .then(pool => {
-        console.log("Connected to Azure SQL Database");
-        return pool;
-    })
-    .catch(err => {
-        console.error("Database Connection Error:", err);
-        throw err;
-    });
+// ==========================================
+// CREATE DATABASE CONNECTION ONLY WHEN NEEDED
+// ==========================================
+
+let poolPromise = null;
+
+function getPool() {
+
+    if (!poolPromise) {
+
+        poolPromise = sql.connect(config)
+            .then(pool => {
+
+                console.log(
+                    "Connected to Azure SQL Database"
+                );
+
+                return pool;
+
+            })
+            .catch(error => {
+
+                console.error(
+                    "Database Connection Error:",
+                    error
+                );
+
+                poolPromise = null;
+
+                throw error;
+
+            });
+
+    }
+
+    return poolPromise;
+}
 
 module.exports = {
     sql,
-    poolPromise
+    getPool
 };

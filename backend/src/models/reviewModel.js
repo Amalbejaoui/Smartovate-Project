@@ -1,4 +1,4 @@
-const { poolPromise } = require("../config/db");
+const { getPool } = require("../config/db");
 
 
 // =====================================
@@ -7,7 +7,7 @@ const { poolPromise } = require("../config/db");
 
 async function addReview(userId, productId, rating, comment) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     // Check product exists
     const productResult = await pool
@@ -88,7 +88,7 @@ async function addReview(userId, productId, rating, comment) {
 
 async function getProductReviews(productId) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -138,7 +138,7 @@ async function getProductReviews(productId) {
 
 async function getAllReviews() {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
@@ -189,7 +189,7 @@ async function getAllReviews() {
 
 async function deleteReview(reviewId, userId, isAdmin = false) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
 
     // Admin can delete any review
@@ -237,7 +237,7 @@ async function updateReview(
     comment
 ) {
 
-    const pool = await poolPromise;
+    const pool = await getPool;
 
     const result = await pool
         .request()
