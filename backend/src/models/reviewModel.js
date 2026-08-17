@@ -1,13 +1,11 @@
 const { getPool } = require("../config/db");
-
-
 // =====================================
 // ADD REVIEW
 // =====================================
 
 async function addReview(userId, productId, rating, comment) {
 
-    const pool = await getPool;
+    const pool = await getPool();
 
     // Check product exists
     const productResult = await pool
@@ -88,8 +86,7 @@ async function addReview(userId, productId, rating, comment) {
 
 async function getProductReviews(productId) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .input("productId", productId)
@@ -138,8 +135,7 @@ async function getProductReviews(productId) {
 
 async function getAllReviews() {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .query(`
@@ -189,8 +185,7 @@ async function getAllReviews() {
 
 async function deleteReview(reviewId, userId, isAdmin = false) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
 
     // Admin can delete any review
     if (isAdmin) {
@@ -237,8 +232,7 @@ async function updateReview(
     comment
 ) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .input("id", reviewId)

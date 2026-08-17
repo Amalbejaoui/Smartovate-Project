@@ -5,13 +5,27 @@
 .latest-products h2 {
     text-align: center;
     font-family: var(--font-heading);
+    font-weight: 500;
     font-size: 40px;
     color: var(--color-text);
+    position: relative;
+    padding-bottom: var(--space-4);
+    letter-spacing: 0.01em;
+}
+
+.latest-products h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 2px;
+    margin: var(--space-4) auto 0;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
 }
 
 .section-subtitle {
     text-align: center;
     color: var(--color-text-muted);
+    margin-top: var(--space-4);
     margin-bottom: 40px;
 }
 

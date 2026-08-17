@@ -1,11 +1,9 @@
-const { poolPromise } = require("./db");
-
+const { getPool } = require("./db");
 async function initializeDatabase() {
 
     try {
 
-        const pool = await poolPromise;
-
+        const pool = await getPool();
         // =====================================
         // PRODUCTS TABLE
         // =====================================

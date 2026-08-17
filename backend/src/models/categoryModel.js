@@ -5,8 +5,7 @@ const { getPool } = require("../config/db");
 // ==============================
 async function getAllCategories() {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .query(`
@@ -24,8 +23,7 @@ async function getAllCategories() {
 // ==============================
 async function createCategory(name) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .input("name", name)
@@ -46,8 +44,7 @@ async function createCategory(name) {
 // ==============================
 async function deleteCategory(id) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     await pool
         .request()
         .input("id", id)

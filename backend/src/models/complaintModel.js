@@ -7,8 +7,7 @@ const { getPool } = require("../config/db");
 
 async function createComplaint(userId, subject, message) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .input("userId", userId)
@@ -43,8 +42,7 @@ async function createComplaint(userId, subject, message) {
 
 async function getMyComplaints(userId) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .input("userId", userId)
@@ -85,8 +83,7 @@ async function getMyComplaints(userId) {
 
 async function getAllComplaints() {
 
-    const pool = await getpool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .query(`
@@ -131,8 +128,7 @@ async function getAllComplaints() {
 
 async function updateComplaint(id, status, adminReply) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .input("id", id)
@@ -160,8 +156,7 @@ async function updateComplaint(id, status, adminReply) {
 
 async function deleteComplaint(id) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .input("id", id)

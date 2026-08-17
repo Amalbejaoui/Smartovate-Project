@@ -106,7 +106,7 @@ function Register() {
 
 
                 <h2>
-                    Shopping By Amal ✨
+                    Shopping By Amal
                 </h2>
 
 

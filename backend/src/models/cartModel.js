@@ -6,8 +6,7 @@ const { getPool } = require("../config/db");
 // =====================================
 async function addToCart(userId, productId, quantity) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     // Check if product already exists
     const existing = await pool
         .request()
@@ -67,8 +66,7 @@ async function addToCart(userId, productId, quantity) {
 // =====================================
 async function getCart(userId) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .input("userId", userId)
@@ -110,8 +108,7 @@ async function getCart(userId) {
 // =====================================
 async function removeFromCart(id) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     await pool
         .request()
         .input("id", id)

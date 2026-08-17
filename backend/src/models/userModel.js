@@ -6,8 +6,7 @@ const { getPool } = require("../config/db");
 // ==========================
 async function findUserByEmail(email) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .input("email", email)
@@ -27,8 +26,7 @@ async function findUserByEmail(email) {
 // ==========================
 async function createUser(user) {
 
-    const pool = await getPool;
-
+    const pool = await getPool();
     const result = await pool
         .request()
         .input("fullName", user.fullName)

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
 .admin-orders-page {
     min-height: 100vh;
     padding: 45px;
@@ -20,7 +22,11 @@
 
 .orders-header h1 {
     margin: 0;
-    color: #333;
+    color: #2c1e24;
+
+    font-family: 'Playfair Display', Georgia, serif;
+
+    font-weight: 500;
     font-size: 32px;
 }
 
@@ -30,7 +36,7 @@
 }
 
 .orders-count {
-    background: #b76e79;
+    background: linear-gradient(135deg, #d4a5b8, #a85c7a);
     color: white;
 
     padding: 12px 22px;
@@ -99,7 +105,7 @@
 .order-top h2 {
     margin: 3px 0 0;
 
-    color: #b76e79;
+    color: #a85c7a;
 }
 
 .order-date {
@@ -137,7 +143,7 @@
 }
 
 .customer-info strong {
-    color: #444;
+    color: #3c2530;
 }
 
 
@@ -156,7 +162,7 @@
 .ordered-products h3 {
     margin-top: 0;
 
-    color: #444;
+    color: #3c2530;
 }
 
 
@@ -219,7 +225,7 @@
 
 
 .product-details strong {
-    color: #444;
+    color: #3c2530;
 }
 
 
@@ -233,7 +239,7 @@
 .product-price {
     font-weight: 600;
 
-    color: #b76e79;
+    color: #a85c7a;
 }
 
 
@@ -273,7 +279,7 @@
 
 
 .order-total strong {
-    color: #b76e79;
+    color: #a85c7a;
 
     font-size: 24px;
 }
@@ -315,7 +321,7 @@
 
 
 .status-section select:focus {
-    border-color: #b76e79;
+    border-color: #c67a95;
 }
 
 
@@ -330,7 +336,7 @@
 
     font-size: 20px;
 
-    color: #b76e79;
+    color: #a85c7a;
 }
 
 
@@ -361,7 +367,7 @@
 
 
 .no-orders h2 {
-    color: #444;
+    color: #3c2530;
 }
 
 
@@ -431,7 +437,7 @@
 
     border-radius: 10px;
 
-    background: #b76e79;
+    background: linear-gradient(135deg, #d4a5b8, #a85c7a);
 
     color: white;
 
